@@ -1,0 +1,10 @@
+.Application{
+   position: absolute;
+   transition: top ease-in 0.2s;
+   box-sizing: border-box;
+   top:0;
+   box-shadow: 5px 5px 5px rgba(0,0,0,0.7);
+   &.Close{
+      top: 100vh;
+   }
+}

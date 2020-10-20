@@ -1,0 +1,19 @@
+.AppBar{
+   box-sizing: border-box;
+   height: 60px;
+   width: calc(100% - 20px);
+   margin: 5px auto;
+   padding: 0 15px;
+   background-color: rgba(0,0,0,0.75);
+   backdrop-filter: blur(5px);
+   border-radius: 10px;
+   display: flex;
+   align-items: center;
+}
+
+.Separator{
+   width: 2px;
+   height: 80%;
+   background:#ccc;
+   margin: 0 5px;
+}

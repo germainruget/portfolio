@@ -1,0 +1,13 @@
+.BurgerContainer{
+    display: flex;
+    min-height: 250px;
+    overflow-y: scroll;
+}
+
+.Burger{
+    width: 350px;
+    // height:400px;
+    margin:auto;
+    padding:25px 0;
+    text-align: center;
+ }

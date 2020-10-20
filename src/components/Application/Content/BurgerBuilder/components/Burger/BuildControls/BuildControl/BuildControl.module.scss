@@ -1,0 +1,43 @@
+.BuildControl{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px 0;
+    min-width: 500px;
+    .Label{
+        width:80px;
+    }
+}
+
+.ButtonContainer{
+    display: flex;
+    // flex-basis: 200px;
+    button{
+        display: block;
+        font-size: inherit;
+        padding: 5px;
+        margin: 0 5px;
+        width: 35px;
+        background-color: #ff7144;
+        border-radius: 5px;
+        cursor: pointer;
+        outline: none;
+        border:none;
+        color:lighten(#ccc, 10%);
+        font-size: 1.2em;
+        &:hover{
+            background-color: darken(#ff7144, 10%);
+        }
+        &:disabled{
+            background-color: lighten(#ff7144, 25%);
+            cursor: not-allowed;
+        }
+    }
+}
+
+@media(max-width: 500px){
+    .BuildControl{
+        // max-width: 100%;
+        min-width: 100%;
+    }
+}

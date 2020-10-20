@@ -1,0 +1,29 @@
+.AppIcon{
+   height:60px;
+   width:60px;
+   // background:#000;
+   color:#fff;
+   display: inline-flex;
+   justify-content: center;
+   align-items: center;
+   cursor: pointer;
+   box-sizing: border-box;
+   &.Big{
+      height:150px;
+      width:150px;
+      flex-direction: column;
+      &:hover, &.Active{
+         background: rgba(255, 255, 255, 0.15);
+      }
+   }
+   &:hover, &.Active{
+      background: lighten(#000, 10%);
+   }
+   &.Open{
+      border-bottom: solid 3px lighten(#000, 10%);
+   }
+}
+
+.Title{
+   margin-top: 15px;
+}

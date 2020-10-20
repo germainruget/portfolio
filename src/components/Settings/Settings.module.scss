@@ -1,0 +1,23 @@
+$width: 500px;
+$offset: 25px;
+.Settings {
+   width: $width;
+   height: 100%;
+   margin-left: -$width - $offset;
+   box-sizing: border-box;
+   background: rgba(0, 0, 0, 0.75);
+   backdrop-filter: blur(5px);
+   transition: all ease-in 0.2s;
+   padding: 10px;
+   color:#fff;
+   position: absolute;
+   top:0;
+   z-index: 10;
+   h2{
+      text-align: center;
+   }
+}
+
+.Active {
+   margin-left: -$offset;
+}

@@ -1,0 +1,29 @@
+.WeatherDisplay{
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   box-sizing: border-box;
+   padding: 10px 0;
+   background: #fff;
+   width: 100%;
+   h3{
+      margin: 0 0 15px 0;
+   }
+}
+
+.Description{
+   font-style: italic;
+   padding-bottom: 10px;
+}
+
+.Temp{
+   display: flex;
+   justify-content: space-around;
+   width: 50%;
+}
+
+.MainTemp{
+   font-size: 2em;
+   font-weight: strong;
+}

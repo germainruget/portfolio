@@ -1,0 +1,11 @@
+.Header{
+   width: 100%;
+   background-color: rgba(0,0,0,0.75);
+   backdrop-filter: blur(5px);
+   display: flex;
+   justify-content: space-between;
+   color:#fff;
+   padding: 5px;
+   box-sizing: border-box;
+   border-radius: 5px 5px 0 0;
+}
