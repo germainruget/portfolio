@@ -12,7 +12,7 @@ import Core from '../Core/Core';
 
 const Desktop = () => {
    console.log('RENDER DESKTOP')
-   const [showMenu, setShowMenu] = useState(true);
+   const [showMenu, setShowMenu] = useState(false);
    const [showSettings, setShowSettings] = useState(false);
    const [background, setBackground] = useState(defaultBG);
 
