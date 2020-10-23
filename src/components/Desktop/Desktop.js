@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 import classes from './Desktop.module.scss';
 
@@ -13,6 +13,18 @@ const Desktop = () => {
    const [showMenu, setShowMenu] = useState(false);
    const [showSettings, setShowSettings] = useState(false);
    const [background, setBackground] = useState(defaultBG);
+   const [loadBackground, setLoadBackground] = useState(false);
+
+   const fetchImage = useCallback(src => {
+      const image = new Image()
+      image.onload = () => setLoadBackground(true);
+      image.src = src
+   }, []);
+
+   useEffect(() => {
+      fetchImage(defaultBG);
+   }, [fetchImage]);
+
 
    const displayMainMenu = useCallback(() => {
       setShowMenu(!showMenu);
@@ -29,14 +41,20 @@ const Desktop = () => {
       setBackground(bg);
    }, []);
 
+   let desktop = <p>LOading...</p>
 
-   return (
-      <div className={classes.Desktop} style={{ backgroundImage: `url(${background})` }}>
-         <NotificationBar />
-         <Core showMenu={showMenu} showSettings={showSettings} displayMenu={displayMainMenu} setBg={changeBackground} />
-         <AppBar displayMenu={displayMainMenu} showMenu={showMenu} displaySettings={displaySettings} showSettings={showSettings} />
-      </div>
-   );
+   if (loadBackground) {
+      desktop = (
+         <div className={classes.Desktop} style={{ backgroundImage: `url(${background})` }}>
+            <NotificationBar />
+            <Core showMenu={showMenu} showSettings={showSettings} displayMenu={displayMainMenu} setBg={changeBackground} />
+            <AppBar displayMenu={displayMainMenu} showMenu={showMenu} displaySettings={displaySettings} showSettings={showSettings} />
+         </div>
+      )
+   }
+
+
+   return desktop;
 }
 
 export default Desktop;
