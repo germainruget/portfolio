@@ -30,7 +30,7 @@ const AppsContextProvider = props => {
       let config;
       for(let app in AppType){
          if(AppType[app].name === appName) {
-            config = {content: AppType[app].content, width: AppType[app].width};
+            config = {content: AppType[app].content, width: AppType[app].width, needLoader: AppType[app].needLoader};
             break;
          }
       }
