@@ -24,7 +24,7 @@ const Weather = () => {
 
    useEffect(() => {
       setIsLoading(true);
-      fetch(`http://api.openweathermap.org/data/2.5/weather?id=${city}&appid=de2ddd75e6cabfa609e42c832f5027fe&units=metric`)
+      fetch(`https://api.openweathermap.org/data/2.5/weather?id=${city}&appid=de2ddd75e6cabfa609e42c832f5027fe&units=metric`)
          .then(response => {
             return response.json();
          }).then(responseData => {

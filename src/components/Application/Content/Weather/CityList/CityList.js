@@ -16,7 +16,7 @@ const CITY_LIST = [
 const CityList = props => {
 
    const list = CITY_LIST.map(city => {
-      return <CityItem click={() => props.changeCity(city.id)} name={city.name} />
+      return <CityItem click={() => props.changeCity(city.id)} name={city.name} key={city.id} />
    })
 
 
