@@ -9,7 +9,7 @@ import AppIcon from '../UI/AppIcon/AppIcon';
 import Search from './Search/Search';
 
 const MainMenu = props => {
-   console.log('RENDER MAIN MENU');
+   // console.log('RENDER MAIN MENU');
 
    let menu = null;
    // const appsContext = useContext(AppsContext);

@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 import WeatherDisplay from './WeatherDisplay/WeatherDisplay';
 import CityList from './CityList/CityList';
 import classes from './Weather.module.scss';
 
 const Weather = () => {
-
    /**
     *  WEATHER MAIN  |  ICONS
     * --------------------------------------
@@ -19,12 +18,9 @@ const Weather = () => {
     * **/
 
    const [weatherData, setWeatherData] = useState(null);
-   const [isLoading, setIsLoading] = useState(true);
-   const [city, setCity]  = useState(2996944);
 
-   useEffect(() => {
-      setIsLoading(true);
-      fetch(`https://api.openweathermap.org/data/2.5/weather?id=${city}&appid=de2ddd75e6cabfa609e42c832f5027fe&units=metric`)
+   const changeCity = useCallback((newCity) => {
+      fetch(`https://api.openweathermap.org/data/2.5/weather?id=${newCity}&appid=de2ddd75e6cabfa609e42c832f5027fe&units=metric`)
          .then(response => {
             return response.json();
          }).then(responseData => {
@@ -37,15 +33,13 @@ const Weather = () => {
             formatData.temp_max = responseData.main.temp_max;
             formatData.icon = getIcon(responseData.weather[0].main);
             formatData.description = responseData.weather[0].description;
-            // console.log(responseData);
             setWeatherData(formatData);
-            setIsLoading(false);
          });
-   }, [city]);
+   }, []);
 
-   const changeCity = (newCity) => {
-      setCity(newCity);
-   }
+   useEffect(() => {
+      changeCity(2996944);
+   }, [changeCity]);
 
    const getIcon = (openWeatherIcon) => {
       switch (openWeatherIcon) {
@@ -68,8 +62,8 @@ const Weather = () => {
 
    return (
       <div className={classes.Weather}>
-         <WeatherDisplay data={weatherData} loading={isLoading} />
-         <CityList changeCity={changeCity}/>
+         <WeatherDisplay data={weatherData} /*loading={isLoading}*/ />
+         <CityList changeCity={changeCity} />
       </div>
    );
 }

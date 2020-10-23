@@ -6,10 +6,8 @@ import classes from './WeatherDisplay.module.scss';
 import Loader from '../../../../UI/Loader/Loader';
 
 const WeatherDisplay = props => {
-   console.log(props.data)
    let weather = <Loader />
-
-   if (!props.loading) {
+   if (props.data) {
       weather = (
          <Fragment>
             <h3>{props.data.name}</h3>

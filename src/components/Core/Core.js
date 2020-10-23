@@ -9,7 +9,7 @@ import Settings from '../Settings/Settings';
 import Application from '../Application/Application';
 
 const Core = props => {
-   console.log('RENDER CORE');
+   // console.log('RENDER CORE');
    const appsContext = useContext(AppsContext);
    const Apps = appsContext.appsConfig.map(config => {
       return <Application config={config} close={appsContext.close} reduce={appsContext.reduce} key={config.name} onFront={appsContext.onFront}/>

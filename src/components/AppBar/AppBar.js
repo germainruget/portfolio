@@ -7,7 +7,7 @@ import classes from './AppBar.module.scss';
 import AppBarIcon from '../UI/AppIcon/AppIcon';
 
 const AppBar = React.memo(props => {
-   console.log('RENDER APPBAR');
+   // console.log('RENDER APPBAR');
 
    const appsContext = useContext(AppsContext);
    
