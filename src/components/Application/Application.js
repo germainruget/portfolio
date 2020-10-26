@@ -19,10 +19,10 @@ const Application = props => {
    const appLoadedHandler = (appLoaded) => {
       setAppLoad(appLoaded);
    }
-
+   
    return (
       <Draggable handle='.handle' bounds='parent'>
-         <div className={appClasses.join(' ')} style={{ width: appWidth, /*height: `${appHeight}px`,*/ zIndex: zIndex }} onMouseDownCapture={() => props.onFront(props.config.name)}>
+         <div className={appClasses.join(' ')} style={{ width: appWidth, zIndex: zIndex }} onMouseDownCapture={() => props.onFront(props.config.name)}>
             <div className='handle' style={{ cursor: 'all-scroll' }}>
                <Header name={props.config.name}
                   close={() => props.close(props.config.name)}

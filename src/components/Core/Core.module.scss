@@ -1,9 +1,16 @@
 .Core{
    display: flex;
    box-sizing: border-box;
-   width: calc(100% - 20px);
-   margin: 5px auto;
-   padding: 15px;
+   width: 100%;
+   margin: 0 auto;
    flex-grow: 1;
    position: relative;
+}
+
+@media screen and (min-width:800px){
+   .Core{
+      margin: 5px auto;
+      padding: 15px;
+      width: calc(100% - 20px);
+   }
 }

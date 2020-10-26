@@ -1,6 +1,7 @@
 .Search{
-   width: 100%;
-   height:50px;
+   width: calc(100% - 40px);
+   max-width: 350px;
+   height:20px;
    border-radius: 50px;
    padding: 25px;
    box-sizing: border-box;
@@ -9,11 +10,13 @@
    background-color: rgba(255,255,255,0.25);
    font-size: 1.2em;
    color: #fff;
-   margin: 25px 0 50px;
+   margin: 25px 0 25px;
 }
 
 @media screen and (min-width:800px){
    .Search{
-      width: 350px;
+      
+      height:50px;
+      margin: 25px 0 50px;
    }
 }
