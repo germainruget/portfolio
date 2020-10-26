@@ -1,0 +1,11 @@
+@media screen and (min-width: 800px) {
+   .MobileOnly{
+      display: none;
+   }
+}
+
+@media screen and (max-width: 799px) {
+   .DesktopOnly{
+      display: none;
+   }
+}   
