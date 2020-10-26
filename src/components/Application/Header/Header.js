@@ -4,15 +4,17 @@ import Icon from '@icon-park/react/es/all';
 import classes from './Header.module.scss';
 
 const Header = props => {
-   return ( 
+   return (
       <div className={classes.Header}>
-         {props.name}
+         <div className={['handle', classes.Handle].join(' ')} style={{ cursor: 'all-scroll' }}>
+            {props.name}
+         </div>
          <div>
-            <Icon style={{padding:'0 5px', cursor:'pointer'}} type='ReduceOne' theme="outline" size="20" onClick={props.reduce}/>
-            <Icon style={{padding:'0 5px', cursor:'pointer'}} type='CloseOne' theme="outline" size="20" onClick={props.close}/>
+            <Icon style={{ padding: '0 5px', cursor: 'pointer' }} type='ReduceOne' theme="outline" size="20" onClick={props.reduce} />
+            <Icon style={{ padding: '0 5px', cursor: 'pointer' }} type='CloseOne' theme="outline" size="20" onClick={props.close} />
          </div>
       </div>
-    );
+   );
 }
- 
+
 export default Header;

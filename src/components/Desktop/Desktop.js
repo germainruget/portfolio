@@ -11,7 +11,6 @@ import Core from '../Core/Core';
 
 const Desktop = () => {
    const windowSize = useWindowSize();
-   console.log(windowSize);
    
    const [showMenu, setShowMenu] = useState(false);
    const [showSettings, setShowSettings] = useState(false);
@@ -50,7 +49,7 @@ const Desktop = () => {
       desktop = (
          <div className={classes.Desktop} style={{ backgroundImage: `url(${background})`, height: windowSize.height }}>
             <NotificationBar />
-            <Core showMenu={showMenu} showSettings={showSettings} displayMenu={displayMainMenu} setBg={changeBackground} />
+            <Core showMenu={showMenu} showSettings={showSettings} displayMenu={displayMainMenu} setBg={changeBackground} windowSize={windowSize} />
             <AppBar displayMenu={displayMainMenu} showMenu={showMenu} displaySettings={displaySettings} showSettings={showSettings} />
          </div>
       )
