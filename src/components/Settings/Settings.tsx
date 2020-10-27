@@ -3,10 +3,15 @@ import classes from './Settings.module.scss';
 
 import Wallpapers from './Wallpapers/Wallpapers';
 
-const Settings = props => {
+interface Props{
+   showSettings: boolean;
+   setBg:(bg:any) => void;
+}
+
+const Settings:React.FC<Props> = ({setBg, showSettings}) => {
 
    const settingsClasses = [classes.Settings];
-   if(props.showSettings){
+   if(showSettings){
       settingsClasses.push(classes.Active);
    }
 
@@ -15,7 +20,7 @@ const Settings = props => {
          <h2>Settings</h2>
          <hr/>
          <h3>Wallpaper</h3>
-         <Wallpapers setBg={props.setBg}/>
+         <Wallpapers setBg={setBg}/>
       </div>
    );
 }

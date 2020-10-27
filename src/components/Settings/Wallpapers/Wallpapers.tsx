@@ -8,12 +8,16 @@ import classes from './Wallpapers.module.scss';
 
 import WallpaperVignette from './WallpaperVignette/WallpaperVignette';
 
-const Wallpapers = props => {
+interface Props{
+   setBg: (bg:string) => void;
+}
+
+const Wallpapers:React.FC<Props> = ({setBg}) => {
    return ( 
       <div className={classes.Wallpapers}>
-         <WallpaperVignette clicked={() => props.setBg(Utah)} vignette={Utah} />
-         <WallpaperVignette clicked={() => props.setBg(Dawn)} vignette={Dawn} />
-         <WallpaperVignette clicked={() => props.setBg(Mountains)} vignette={Mountains} />
+         <WallpaperVignette clicked={() => setBg(Utah)} vignette={Utah} />
+         <WallpaperVignette clicked={() => setBg(Dawn)} vignette={Dawn} />
+         <WallpaperVignette clicked={() => setBg(Mountains)} vignette={Mountains} />
       </div>
     );
 }

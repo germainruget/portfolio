@@ -1,23 +1,27 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-import AppType from '../../../config/AppType';
+import AppType, { Apps } from '../../../config/AppType';
 
 import classes from './Search.module.scss';
 
 // import AppIcon from '../../UI/AppIcon/AppIcon';
 // import { AppsContext } from '../../../context/apps-context';
 
-const Search = props => {
-   const {filter} = props;
+interface Props {
+   filter: (filteredApps:Apps) => void;
+}
+
+const Search: React.FC<Props> = ({ filter }) => {
+
    const [searchInput, setSearchInput] = useState('');
-   const inputRef = useRef('');
+   const inputRef = useRef<HTMLInputElement>(null);
 
    useEffect(() => {
       const timer = setTimeout(() => {
-         if (searchInput === inputRef.current.value) {
-   
-            let filteredApps = {};
-            for(let app in AppType){
+         if (inputRef.current !== null && searchInput === inputRef.current.value) {
+
+            let filteredApps:Apps = {};
+            for (let app in AppType) {
                const name = AppType[app].name.toLowerCase();
                const search = searchInput.toLowerCase();
                if (name.startsWith(search)) {

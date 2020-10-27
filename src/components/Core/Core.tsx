@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {AppsContext} from '../../context/apps-context';
+import {Config, AppsContext} from '../../context/apps-context';
 
 import classes from './Core.module.scss';
 
@@ -8,18 +8,29 @@ import Settings from '../Settings/Settings';
 
 import Application from '../Application/Application';
 
-const Core = props => {
+interface Props{
+   showMenu: boolean;
+   showSettings: boolean;
+   displayMenu: () => void;
+   setBg: (bg:any) => void;
+}
+
+const Core: React.FC<Props> = ({displayMenu, setBg, showMenu, showSettings}) => {
    // console.log('RENDER CORE');
    const appsContext = useContext(AppsContext);
-   const Apps = appsContext.appsConfig.map(config => {
+   const Apps = appsContext.appsConfig.map((config:Config) => {
       return <Application config={config} close={appsContext.close} reduce={appsContext.reduce} key={config.name} onFront={appsContext.onFront}/>
    })
    // console.log(Apps);
+
+   const openApp = (appName:string):void => {
+      appsContext.open(appName);
+   }
    
    return ( 
       <div className={classes.Core}>
-         <MainMenu showMenu={props.showMenu} displayMenu={props.displayMenu} appsContext={appsContext}/>
-         <Settings showSettings={props.showSettings} setBg={props.setBg}/>
+         <MainMenu showMenu={showMenu} displayMenu={displayMenu} open={openApp}/>
+         <Settings showSettings={showSettings} setBg={setBg}/>
          {Apps}
       </div>
     );

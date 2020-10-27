@@ -9,7 +9,7 @@ import AppBar from '../AppBar/AppBar';
 import NotificationBar from '../NotificationBar/NotificationBar';
 import Core from '../Core/Core';
 
-const Desktop = () => {
+const Desktop: React.FC = () => {
    const windowSize = useWindowSize();
    
    const [showMenu, setShowMenu] = useState(false);
@@ -33,13 +33,13 @@ const Desktop = () => {
       setShowSettings(false);
    }, [showMenu]);
 
-   const displaySettings = useCallback((cb) => {
+   const displaySettings = useCallback((cb?:void) => {
       setShowSettings(!showSettings);
       setShowMenu(false);
       return cb;
    }, [showSettings]);
 
-   const changeBackground = useCallback((bg) => {
+   const changeBackground = useCallback((bg):void => {
       setBackground(bg);
    }, []);
 

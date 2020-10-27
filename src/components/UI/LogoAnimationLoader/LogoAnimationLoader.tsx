@@ -2,11 +2,15 @@ import React from 'react';
 
 import classes from './LogoAnimationLoader.module.scss'
 
-const LogoAnimationLoader = (props) => {
+interface Props{
+   message: string;
+}
+
+const LogoAnimationLoader: React.FC<Props> = ({message}) => {
    return (
       <div className={classes.Container}>
          <div className={classes.LoadingEllipses}><div></div><div></div><div></div><div></div></div>
-         <div>{props.message}</div>
+         <div>{message}</div>
       </div>
    );
 }

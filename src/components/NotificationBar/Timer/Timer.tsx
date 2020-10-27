@@ -5,7 +5,7 @@ import classes from './Timer.module.scss';
 import Icon from '@icon-park/react/es/all';
 
 const Timer = () => {
-   const [time, setTime] = useState(new Date().toLocaleTimeString());
+   const [time, setTime] = useState<String>(new Date().toLocaleTimeString());
    const date = new Date().toLocaleDateString();
 
    useEffect(() => {

@@ -4,7 +4,7 @@ import Desktop from './components/Desktop/Desktop';
 
 
 
-const App = props => {
+const App = () => {
 
   // console.log('RENDER APP');
   return  <Desktop/>;  
