@@ -1,7 +1,8 @@
 import React, { useState, useCallback } from 'react';
+import useWindowSize from '../../hooks/windowSize';
+
 import AppType from '../../config/AppType';
 
-// import { AppsContext } from '../../context/apps-context';
 
 import classes from './MainMenu.module.scss';
 
@@ -10,13 +11,16 @@ import Search from './Search/Search';
 
 const MainMenu = props => {
    // console.log('RENDER MAIN MENU');
-
+   const windowSize = useWindowSize();
    let menu = null;
-   // const appsContext = useContext(AppsContext);
    
    const [apps, setApps] = useState(AppType);
-   // console.log(apps);
    const iconsApps = Object.keys(apps).map(key => {
+
+      if(windowSize.width < 800 && !apps[key].onMobile){
+         return null;
+      }
+
       return <AppIcon size='big'
       title={apps[key].name}
       action={() => { props.appsContext.open(apps[key].name); props.displayMenu() }}

@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import useWindowSize from '../../hooks/windowSize';
+
 import Draggable from 'react-draggable';
 
 import classes from './Application.module.scss';
@@ -22,7 +24,7 @@ const Application = props => {
    }
 
    
-   const {windowSize} = props; 
+   const windowSize = useWindowSize(); 
 
    useEffect(() => {
       const resetDrag = () => {

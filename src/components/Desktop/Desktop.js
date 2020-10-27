@@ -49,7 +49,7 @@ const Desktop = () => {
       desktop = (
          <div className={classes.Desktop} style={{ backgroundImage: `url(${background})`, height: windowSize.height }}>
             <NotificationBar />
-            <Core showMenu={showMenu} showSettings={showSettings} displayMenu={displayMainMenu} setBg={changeBackground} windowSize={windowSize} />
+            <Core showMenu={showMenu} showSettings={showSettings} displayMenu={displayMainMenu} setBg={changeBackground} />
             <AppBar displayMenu={displayMainMenu} showMenu={showMenu} displaySettings={displaySettings} showSettings={showSettings} />
          </div>
       )
