@@ -1,39 +1,44 @@
-import React, {useContext} from 'react';
-import {Config, AppsContext} from '../../context/apps-context';
+import React, { useContext, useRef } from 'react';
+import useWhyDidYouUpdate from '../../hooks/whyDidYouUpdate';
+
+import { Config, AppsContext } from '../../context/apps-context';
 
 import classes from './Core.module.scss';
 
 import MainMenu from '../MainMenu/MainMenu';
 import Settings from '../Settings/Settings';
+import MobileNavigation from '../MobileNavigation/MobileNavigation';
 
 import Application from '../Application/Application';
 
-interface Props{
+interface Props {
+   displayMenu: () => void;
    showMenu: boolean;
    showSettings: boolean;
-   displayMenu: () => void;
-   setBg: (bg:any) => void;
+   displayMobileMenu: () => void;
+   showMobileMenu: boolean;
+   setBg: (bg: any) => void;
 }
 
-const Core: React.FC<Props> = ({displayMenu, setBg, showMenu, showSettings}) => {
-   // console.log('RENDER CORE');
+const Core: React.FC<Props> = ({ displayMenu, setBg, showMenu, showSettings, showMobileMenu, displayMobileMenu }) => {
+   useWhyDidYouUpdate('Core', { displayMenu, setBg, showMenu, showSettings, showMobileMenu, displayMobileMenu })
+   //ref pass to the application to constrain the drag to the CORE
+   const constraintRef = useRef<HTMLDivElement>(null);
+
    const appsContext = useContext(AppsContext);
-   const Apps = appsContext.appsConfig.map((config:Config) => {
-      return <Application config={config} close={appsContext.close} reduce={appsContext.reduce} key={config.name} onFront={appsContext.onFront}/>
-   })
-   // console.log(Apps);
 
-   const openApp = (appName:string):void => {
-      appsContext.open(appName);
-   }
-   
-   return ( 
-      <div className={classes.Core}>
-         <MainMenu showMenu={showMenu} displayMenu={displayMenu} open={openApp}/>
-         <Settings showSettings={showSettings} setBg={setBg}/>
-         {Apps}
+   const Apps = appsContext.appsConfig.map((config: Config) => {
+      return <Application ref={constraintRef} config={config} close={appsContext.close} reduce={appsContext.reduce} key={config.name} onFront={appsContext.onFront} />
+   })
+
+   return (
+      <div ref={constraintRef} className={classes.Core}>
+         <MainMenu showMenu={showMenu} displayMenu={displayMenu} open={appsContext.open} />
+         <MobileNavigation showMobileMenu={showMobileMenu} displayMobileMenu={displayMobileMenu} />
+         <Settings showSettings={showSettings} setBg={setBg} />
+         {Apps}   
       </div>
-    );
+   );
 }
- 
-export default Core;
+
+export default React.memo(Core);

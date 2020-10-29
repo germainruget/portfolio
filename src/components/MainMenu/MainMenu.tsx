@@ -1,4 +1,6 @@
 import React, { useState, useCallback } from 'react';
+import useWhyDidYouUpdate from '../../hooks/whyDidYouUpdate';
+
 import useWindowSize from '../../hooks/windowSize';
 
 import AppType, {Apps} from '../../config/AppType';
@@ -16,7 +18,7 @@ interface Props {
 }
 
 const MainMenu: React.FC<Props> = ({ displayMenu, showMenu, open }) => {
-   // console.log('RENDER MAIN MENU');
+   useWhyDidYouUpdate('MainMenu', { displayMenu, showMenu, open })
    const windowSize = useWindowSize();
    let menu = null;
 
@@ -52,4 +54,4 @@ const MainMenu: React.FC<Props> = ({ displayMenu, showMenu, open }) => {
    return menu;
 }
 
-export default MainMenu;
+export default React.memo(MainMenu);

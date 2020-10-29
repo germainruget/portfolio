@@ -14,6 +14,8 @@ const Desktop: React.FC = () => {
    
    const [showMenu, setShowMenu] = useState(false);
    const [showSettings, setShowSettings] = useState(false);
+   const [showMobileMenu, setShowMobileMenu] = useState(false);
+
    const [background, setBackground] = useState(defaultBG);
    const [loadBackground, setLoadBackground] = useState(false);
 
@@ -31,11 +33,19 @@ const Desktop: React.FC = () => {
    const displayMainMenu = useCallback(() => {
       setShowMenu(!showMenu);
       setShowSettings(false);
+      setShowMobileMenu(false);
    }, [showMenu]);
+
+   const displayMobileMenu = useCallback(() => {
+      setShowMobileMenu(!showMobileMenu);
+      setShowSettings(false);
+      setShowMenu(false);
+   }, [showMobileMenu]);
 
    const displaySettings = useCallback((cb?:void) => {
       setShowSettings(!showSettings);
       setShowMenu(false);
+      setShowMobileMenu(false);
       return cb;
    }, [showSettings]);
 
@@ -48,9 +58,22 @@ const Desktop: React.FC = () => {
    if (loadBackground) {
       desktop = (
          <div className={classes.Desktop} style={{ backgroundImage: `url(${background})`, height: windowSize.height }}>
+
             <NotificationBar />
-            <Core showMenu={showMenu} showSettings={showSettings} displayMenu={displayMainMenu} setBg={changeBackground} />
-            <AppBar displayMenu={displayMainMenu} showMenu={showMenu} displaySettings={displaySettings} showSettings={showSettings} />
+
+            <Core showMenu={showMenu}
+                  displayMenu={displayMainMenu}
+                  showMobileMenu={showMobileMenu}
+                  displayMobileMenu={displayMobileMenu}
+                  showSettings={showSettings}
+                  setBg={changeBackground} />
+
+            <AppBar  displayMenu={displayMainMenu}
+                     showMenu={showMenu}
+                     displaySettings={displaySettings}
+                     showSettings={showSettings} 
+                     displayMobileMenu={displayMobileMenu}
+                     showMobileMenu={showMobileMenu} />
          </div>
       )
    }

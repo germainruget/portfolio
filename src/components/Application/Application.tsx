@@ -1,27 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import useWindowSize from '../../hooks/windowSize';
-import {Config} from '../../context/apps-context';
+import React, { useState } from 'react';
+import useWhyDidYouUpdate from '../../hooks/whyDidYouUpdate';
 
-import Draggable, { ControlPosition } from 'react-draggable';
+import { motion, useDragControls } from 'framer-motion';
+
+import { Config } from '../../context/apps-context';
+
 
 import classes from './Application.module.scss';
 
 import Header from './Header/Header';
 import LogoAnimationLoader from '../UI/LogoAnimationLoader/LogoAnimationLoader';
 
-// config = {content: AppType[app].content, width: AppType[app].width, needLoader: AppType[app].needLoader, onMobile:AppType[app].onMobile};
 
-interface Props{
+interface Props {
    config: Config;
-   close: (appName:string) => void;
-   reduce: (appName:string) => void;
-   onFront: (appName:string) => void;
+   close: (appName: string) => void;
+   reduce: (appName: string) => void;
+   onFront: (appName: string) => void;
 }
 
-const Application: React.FC<Props> = ({config, close, reduce, onFront}) => {
-   
+const Application = React.forwardRef<HTMLDivElement, Props>(({ config, close, reduce, onFront }, ref) => {
+
+   useWhyDidYouUpdate('Application', { config, close, reduce, onFront })
+
    const [appLoad, setAppLoad] = useState(config.needLoader);
-   const [dragPosition, setDragPosition] = useState<ControlPosition | undefined | undefined>(undefined);
 
    let appWidth = config.width ? config.width : '200px';
    const zIndex = config.active ? 2 : 1;
@@ -33,34 +35,30 @@ const Application: React.FC<Props> = ({config, close, reduce, onFront}) => {
       setAppLoad(appLoaded);
    }
 
-   
-   const windowSize = useWindowSize(); 
+   const dragControls = useDragControls()
 
-   useEffect(() => {
-      const resetDrag = () => {
-         if(windowSize.width !== undefined && windowSize.width < 800) setDragPosition({x:0,y:0});
-      }
-
-      resetDrag();
-   }, [windowSize]);
-
-   const setDragAgain = () => {
-      setDragPosition(undefined);
+   function startDrag(event:any) {
+      dragControls.start(event)
    }
 
    return (
-      <Draggable handle='.handle' bounds='parent' position={dragPosition} onStart={setDragAgain}>
-         <div className={appClasses.join(' ')} style={{ width: appWidth, zIndex: zIndex }} onMouseDownCapture={() => onFront(config.name)}>
-            <Header name={config.name}
-               close={() => close(config.name)}
-               reduce={() => reduce(config.name)} />
-            <div className={classes.AppContent}>
-               {appLoad && <LogoAnimationLoader message="Game is loading..." />}
-               {React.cloneElement(config.content, { loadApp: appLoadedHandler })}
-            </div>
+      <motion.div
+         drag
+         dragConstraints={ref as React.RefObject<HTMLInputElement>}
+         dragElastic={0.1}
+         dragControls={dragControls}
+         dragListener={false}
+         dragMomentum={false}
+         className={appClasses.join(' ')}
+         style={{ width: appWidth, zIndex: zIndex }}
+         onMouseDownCapture={() => onFront(config.name)}>
+         <Header onPointerDown={startDrag} name={config.name} close={() => close(config.name)} reduce={() => reduce(config.name)} />
+         <div className={classes.AppContent}>
+            {appLoad && <LogoAnimationLoader message="Game is loading..." />}
+            {React.cloneElement(config.content, { loadApp: appLoadedHandler })}
          </div>
-      </Draggable>
+      </motion.div>
    );
-}
+});
 
-export default Application;
+export default React.memo(Application);

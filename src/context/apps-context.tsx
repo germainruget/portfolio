@@ -17,7 +17,7 @@ type ContextProps = {
    appsConfig: Array<Config>;
    config: (appName: string) => Config | null;
    close: (appName: string) => void;
-   open: (appName: string) => void;
+   open: (appName: string, mobile?:boolean) => void;
    reduce: (appName: string) => void;
    onFront: (appName: string) => void;
 }
@@ -57,7 +57,7 @@ const AppsContextProvider: React.FC = (props) => {
       return config;
    }
 
-   const openApp = useCallback((appName: string) => {
+   const openApp = useCallback((appName: string, mobile?:boolean) => {
       //Check if app Exist in the state
       const appExist = configs.filter(config => config.name === appName);
 
@@ -81,7 +81,7 @@ const AppsContextProvider: React.FC = (props) => {
          const appIndex = getAppIndex(appName);
          const newConfig = [...configs];
          //if open, reduce it
-         if (newConfig[appIndex].active === true) {
+         if (newConfig[appIndex].active === true && !mobile) {
             newConfig[appIndex].open = true;
             newConfig[appIndex].reduce = true;
             newConfig[appIndex].active = false;

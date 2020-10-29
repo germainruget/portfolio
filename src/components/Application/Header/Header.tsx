@@ -7,12 +7,13 @@ interface Props{
    name:string;
    reduce: () => void;
    close: () => void;
+   onPointerDown: (event:any) => void;
 }
 
-const Header: React.FC<Props> = ({name, reduce, close}) => {
+const Header: React.FC<Props> = ({name, reduce, close, onPointerDown}) => {
    return (
       <div className={classes.Header}>
-         <div className={['handle', classes.Handle].join(' ')} style={{ cursor: 'all-scroll' }}>
+         <div onPointerDown={(event) => onPointerDown(event)} className={classes.Handle} style={{ cursor: 'all-scroll' }}>
             {name}
          </div>
          <div>

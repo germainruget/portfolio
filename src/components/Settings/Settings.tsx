@@ -1,4 +1,6 @@
 import React from 'react';
+import useWhyDidYouUpdate from '../../hooks/whyDidYouUpdate';
+
 import classes from './Settings.module.scss';
 
 import Wallpapers from './Wallpapers/Wallpapers';
@@ -9,7 +11,8 @@ interface Props{
 }
 
 const Settings:React.FC<Props> = ({setBg, showSettings}) => {
-
+   useWhyDidYouUpdate('Settings', {setBg, showSettings})
+   
    const settingsClasses = [classes.Settings];
    if(showSettings){
       settingsClasses.push(classes.Active);
@@ -25,4 +28,4 @@ const Settings:React.FC<Props> = ({setBg, showSettings}) => {
    );
 }
 
-export default Settings;
+export default React.memo(Settings);

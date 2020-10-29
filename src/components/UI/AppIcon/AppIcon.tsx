@@ -1,44 +1,46 @@
 import React from 'react';
+import { motion } from "framer-motion";
+
 import Icon from '@icon-park/react/es/all';
 
 import classes from './AppIcon.module.scss';
 
-interface Props{
-   size?:string;
-   title?:string;
-   type:any;
+interface Props {
+   size?: 'classic' | 'big' | undefined;
+   title?: string;
+   type: any;
    action: () => void;
-   active?:boolean;
-   open?:boolean;
+   active?: boolean;
+   open?: boolean;
 }
 
-const AppIcon:React.FC<Props> = ({size, active, open, action, title, type}) => {
+const AppIcon: React.FC<Props> = ({ size, active, open, action, title, type }) => {
 
    let defineSize = size ? size : 'classic';
-   let defineTitle = null;
+   let defineTitle = <span className={classes.Title}></span>;
    let iconSize = '20';
-   
+
    const iconClasses = [classes.AppIcon];
 
-   if(defineSize === 'big') {
+   if (defineSize === 'big') {
       iconClasses.push(classes.Big);
       defineTitle = <span className={classes.Title}>{title}</span>
       iconSize = '40'
    }
 
-   if(active){
+   if (active) {
       iconClasses.push(classes.Active);
    }
-   else if(open){
+   else if (open) {
       iconClasses.push(classes.Open);
    }
 
-   return ( 
-      <div className={iconClasses.join(' ')} onClick={action}>
+   return (
+      <motion.div layout transition={{ ease: "easeOut", duration: .2 }} className={iconClasses.join(' ')} onClick={action}>
          <Icon type={type} theme="outline" size={iconSize} className={classes.Icon} />
          {defineTitle}
-      </div>
-    );
+      </motion.div>
+   );
 }
- 
+
 export default AppIcon;
