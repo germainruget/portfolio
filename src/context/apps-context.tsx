@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 
 import AppType from '../config/AppType';
 
@@ -17,34 +17,33 @@ type ContextProps = {
    appsConfig: Array<Config>;
    config: (appName: string) => Config | null;
    close: (appName: string) => void;
-   open: (appName: string, mobile?:boolean) => void;
+   open: (appName: string, mobile?: boolean) => void;
    reduce: (appName: string) => void;
    onFront: (appName: string) => void;
 }
 
 export const AppsContext = React.createContext<ContextProps>({
    appsConfig: [],
-   close: () => {},
-   open: () => {},
+   close: () => { },
+   open: () => { },
    config: () => null,
-   reduce: () => {},
-   onFront: () => {}
+   reduce: () => { },
+   onFront: () => { }
 });
 
 const AppsContextProvider: React.FC = (props) => {
-
    const [configs, setConfigs] = useState<Array<Config>>([]);
 
    const getAppIndex = useCallback((appName) => configs.findIndex((config: Config) => config.name === appName), [configs]);
 
-   const getAppConfigByName = (appName: string):Config | null => {
+   const getAppConfigByName = useCallback((appName: string): Config | null => {
       const appIndex = getAppIndex(appName);
       let appConfig = null;
       if (appIndex >= 0) {
          appConfig = configs[appIndex]
       }
       return appConfig;
-   }
+   }, [configs, getAppIndex]);
 
    const defineAppContent = (appName: string): Config | undefined => {
       let config;
@@ -57,7 +56,7 @@ const AppsContextProvider: React.FC = (props) => {
       return config;
    }
 
-   const openApp = useCallback((appName: string, mobile?:boolean) => {
+   const openApp = useCallback((appName: string, mobile?: boolean) => {
       //Check if app Exist in the state
       const appExist = configs.filter(config => config.name === appName);
 
@@ -129,8 +128,12 @@ const AppsContextProvider: React.FC = (props) => {
       setConfigs(newConfig);
    }, [configs, getAppIndex]);
 
+   const providerValue = useMemo(() => {
+      return { appsConfig: configs, open: openApp, close: closeApp, reduce: reduceApp, config: getAppConfigByName, onFront: appOnFront }
+   }, [configs, openApp, closeApp, reduceApp, getAppConfigByName, appOnFront]);
+
    return (
-      <AppsContext.Provider value={{ appsConfig: configs, open: openApp, close: closeApp, reduce: reduceApp, config: getAppConfigByName, onFront: appOnFront }}>
+      <AppsContext.Provider value={providerValue}>
          {props.children}
       </AppsContext.Provider>
    )

@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext, useState, useCallback } from 'react';
+
+import { Config, AppsContext } from '../../context/apps-context';
+
 import useWhyDidYouUpdate from '../../hooks/whyDidYouUpdate';
 
 import { motion, useDragControls } from 'framer-motion';
 
-import { Config } from '../../context/apps-context';
 
 
 import classes from './Application.module.scss';
@@ -14,18 +16,17 @@ import LogoAnimationLoader from '../UI/LogoAnimationLoader/LogoAnimationLoader';
 
 interface Props {
    config: Config;
-   close: (appName: string) => void;
-   reduce: (appName: string) => void;
-   onFront: (appName: string) => void;
 }
 
-const Application = React.forwardRef<HTMLDivElement, Props>(({ config, close, reduce, onFront }, ref) => {
-
-   useWhyDidYouUpdate('Application', { config, close, reduce, onFront })
+const Application = React.forwardRef<HTMLDivElement, Props>(({ config, /*close, reduce, onFront*/ }, ref) => {
+   
+    const { onFront, close, reduce } = useContext(AppsContext);
+   
+   useWhyDidYouUpdate('Application', { config, /*close, reduce, onFront*/ })
 
    const [appLoad, setAppLoad] = useState(config.needLoader);
 
-   let appWidth = config.width ? config.width : '200px';
+   let appWidth = config.width ? config.width : 'auto';
    const zIndex = config.active ? 2 : 1;
 
    const appClasses = [classes.Application];
@@ -37,7 +38,7 @@ const Application = React.forwardRef<HTMLDivElement, Props>(({ config, close, re
 
    const dragControls = useDragControls()
 
-   function startDrag(event:any) {
+   function startDrag(event: any) {
       dragControls.start(event)
    }
 
@@ -53,10 +54,11 @@ const Application = React.forwardRef<HTMLDivElement, Props>(({ config, close, re
          style={{ width: appWidth, zIndex: zIndex }}
          onMouseDownCapture={() => onFront(config.name)}>
          <Header onPointerDown={startDrag} name={config.name} close={() => close(config.name)} reduce={() => reduce(config.name)} />
-         <div className={classes.AppContent}>
+         <div className={classes.AppContent} >
             {appLoad && <LogoAnimationLoader message="Game is loading..." />}
             {React.cloneElement(config.content, { loadApp: appLoadedHandler })}
          </div>
+
       </motion.div>
    );
 });

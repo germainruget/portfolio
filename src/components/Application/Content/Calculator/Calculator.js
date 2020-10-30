@@ -4,7 +4,6 @@ import classes from './Calculator.module.scss';
 import Button from '../../../UI/Button/Button';
 
 const Calculator = () => {
-   console.log('RENDER CALCULATOR')
    const [calcul, setCalcul] = useState([]);
 
    const buttons = [];

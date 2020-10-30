@@ -5,6 +5,7 @@ import Calculator from '../components/Application/Content/Calculator/Calculator'
 import BurgerBuilder from '../components/Application/Content/BurgerBuilder/BurgerBuilder';
 import LevainGame from '../components/Application/Content/LevainGame/LevainGame';
 import Weather from '../components/Application/Content/Weather/Weather';
+import PDFReader from '../components/Application/Content/PDFReader/PDFReader';
 
 interface Config {
    name: string;
@@ -22,10 +23,11 @@ export interface Apps {
 
 
 const AppType:Apps = {
-   CALCULATOR: { name: 'Calculator', icon: 'Calculator', content: <Calculator />, needLoader: false, onMobile: true, appBar: true, width: ''},
+   CALCULATOR: { name: 'Calculator', icon: 'Calculator', content: <Calculator />, needLoader: false, onMobile: true, appBar: true, width: '200px'},
    BURGER: { name: 'Burger', icon: 'Hamburger', content: <BurgerBuilder />, needLoader: false, onMobile: true, appBar: true, width: '500px' },
    LEVAINGAME: { name: 'Levain', icon: 'GameHandle', content: <LevainGame />, needLoader: true, onMobile: false, appBar: false, width: '70%' },
    WEATHER: { name: 'Weather', icon: 'Sunny', content: <Weather />, needLoader: false, onMobile: true, appBar: false, width: '450px' },
+   PDFREADER: { name: 'PDFReader', icon: 'FilePdf', content: <PDFReader />, needLoader: true, onMobile: true, appBar: true, width: '' },
 }
 
 export default AppType;

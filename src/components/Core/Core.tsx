@@ -28,12 +28,12 @@ const Core: React.FC<Props> = ({ displayMenu, setBg, showMenu, showSettings, sho
    const appsContext = useContext(AppsContext);
 
    const Apps = appsContext.appsConfig.map((config: Config) => {
-      return <Application ref={constraintRef} config={config} close={appsContext.close} reduce={appsContext.reduce} key={config.name} onFront={appsContext.onFront} />
+      return <Application ref={constraintRef} config={config} /*close={appsContext.close} reduce={appsContext.reduce} onFront={appsContext.onFront}*/ key={config.name} />
    })
 
    return (
       <div ref={constraintRef} className={classes.Core}>
-         <MainMenu showMenu={showMenu} displayMenu={displayMenu} open={appsContext.open} />
+         <MainMenu showMenu={showMenu} displayMenu={displayMenu} /*open={appsContext.open}*/ />
          <MobileNavigation showMobileMenu={showMobileMenu} displayMobileMenu={displayMobileMenu} />
          <Settings showSettings={showSettings} setBg={setBg} />
          {Apps}   

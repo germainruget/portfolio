@@ -1,10 +1,10 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useContext } from 'react';
 import useWhyDidYouUpdate from '../../hooks/whyDidYouUpdate';
 
 import useWindowSize from '../../hooks/windowSize';
 
-import AppType, {Apps} from '../../config/AppType';
-
+import AppType, { Apps } from '../../config/AppType';
+import { AppsContext } from '../../context/apps-context';
 
 import classes from './MainMenu.module.scss';
 
@@ -14,11 +14,13 @@ import Search from './Search/Search';
 interface Props {
    displayMenu: () => void;
    showMenu: boolean;
-   open: (appName: string) => void;
+   // open: (appName: string) => void;
 }
 
-const MainMenu: React.FC<Props> = ({ displayMenu, showMenu, open }) => {
-   useWhyDidYouUpdate('MainMenu', { displayMenu, showMenu, open })
+const MainMenu: React.FC<Props> = ({ displayMenu, showMenu, /*open*/ }) => {
+   useWhyDidYouUpdate('MainMenu', { displayMenu, showMenu, /*open*/ });
+
+   const { open } = useContext(AppsContext);
    const windowSize = useWindowSize();
    let menu = null;
 

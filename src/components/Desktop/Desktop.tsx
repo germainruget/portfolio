@@ -1,4 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
+
+import AppsContextProvider from '../../context/apps-context';
+
 import useWindowSize from '../../hooks/windowSize';
 
 import classes from './Desktop.module.scss';
@@ -11,7 +14,7 @@ import Core from '../Core/Core';
 
 const Desktop: React.FC = () => {
    const windowSize = useWindowSize();
-   
+
    const [showMenu, setShowMenu] = useState(false);
    const [showSettings, setShowSettings] = useState(false);
    const [showMobileMenu, setShowMobileMenu] = useState(false);
@@ -42,14 +45,14 @@ const Desktop: React.FC = () => {
       setShowMenu(false);
    }, [showMobileMenu]);
 
-   const displaySettings = useCallback((cb?:void) => {
+   const displaySettings = useCallback((cb?: void) => {
       setShowSettings(!showSettings);
       setShowMenu(false);
       setShowMobileMenu(false);
       return cb;
    }, [showSettings]);
 
-   const changeBackground = useCallback((bg):void => {
+   const changeBackground = useCallback((bg): void => {
       setBackground(bg);
    }, []);
 
@@ -60,20 +63,21 @@ const Desktop: React.FC = () => {
          <div className={classes.Desktop} style={{ backgroundImage: `url(${background})`, height: windowSize.height }}>
 
             <NotificationBar />
-
-            <Core showMenu={showMenu}
+            <AppsContextProvider>
+               <Core showMenu={showMenu}
                   displayMenu={displayMainMenu}
                   showMobileMenu={showMobileMenu}
                   displayMobileMenu={displayMobileMenu}
                   showSettings={showSettings}
                   setBg={changeBackground} />
 
-            <AppBar  displayMenu={displayMainMenu}
-                     showMenu={showMenu}
-                     displaySettings={displaySettings}
-                     showSettings={showSettings} 
-                     displayMobileMenu={displayMobileMenu}
-                     showMobileMenu={showMobileMenu} />
+               <AppBar displayMenu={displayMainMenu}
+                  showMenu={showMenu}
+                  displaySettings={displaySettings}
+                  showSettings={showSettings}
+                  displayMobileMenu={displayMobileMenu}
+                  showMobileMenu={showMobileMenu} />
+            </AppsContextProvider>
          </div>
       )
    }

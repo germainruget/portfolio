@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import AppType from '../../config/AppType';
 
+import useWhyDidYouUpdate from '../../hooks/whyDidYouUpdate';
+
 import { AppsContext } from '../../context/apps-context';
 
 import classes from './AppBar.module.scss';
@@ -19,11 +21,11 @@ interface Props {
 
 const AppBar: React.FC<Props> = ({ displayMenu, displaySettings, showSettings, showMenu, displayMobileMenu, showMobileMenu }) => {
    // console.log('RENDER APPBAR');
-
-   const appsContext = useContext(AppsContext);
+   useWhyDidYouUpdate('AppBar', { displayMenu, displaySettings, showSettings, showMenu, displayMobileMenu, showMobileMenu })
+   const {config, open} = useContext(AppsContext);
 
    const allApps = Object.keys(AppType).map(key => {
-      const app = appsContext.config(AppType[key].name);
+      const app = config(AppType[key].name);
 
       let appOpen: boolean | undefined = false;
       let appActive: boolean | undefined = false;
@@ -36,7 +38,7 @@ const AppBar: React.FC<Props> = ({ displayMenu, displaySettings, showSettings, s
       if (AppType[key].appBar || appOpen) {
          return (
             <AppBarIcon type={AppType[key].icon}
-               action={() => appsContext.open(AppType[key].name)}
+               action={() => open(AppType[key].name)}
                active={appActive}
                open={appOpen}
                key={key} />
