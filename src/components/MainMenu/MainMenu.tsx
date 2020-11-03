@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useContext } from 'react';
 import useWhyDidYouUpdate from '../../hooks/whyDidYouUpdate';
 
-import useWindowSize from '../../hooks/windowSize';
+import useWindowSize from '../../hooks/useWindowSize';
 
 import AppType, { Apps } from '../../config/AppType';
 import { AppsContext } from '../../context/apps-context';

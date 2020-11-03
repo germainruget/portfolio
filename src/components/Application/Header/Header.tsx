@@ -8,12 +8,13 @@ interface Props{
    reduce: () => void;
    close: () => void;
    onPointerDown: (event:any) => void;
+   onPointerUp: (event:any) => void;
 }
 
-const Header: React.FC<Props> = ({name, reduce, close, onPointerDown}) => {
+const Header: React.FC<Props> = ({name, reduce, close, onPointerDown, onPointerUp}) => {
    return (
       <div className={classes.Header}>
-         <div onPointerDown={(event) => onPointerDown(event)} className={classes.Handle} style={{ cursor: 'all-scroll' }}>
+         <div onPointerDown={(event) => onPointerDown(event)} onPointerUp={(event) => onPointerUp(event)} className={classes.Handle} style={{ cursor: 'all-scroll' }}>
             {name}
          </div>
          <div>

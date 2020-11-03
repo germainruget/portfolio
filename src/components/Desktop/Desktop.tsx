@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 
 import AppsContextProvider from '../../context/apps-context';
 
-import useWindowSize from '../../hooks/windowSize';
+import useWindowSize from '../../hooks/useWindowSize';
 
 import classes from './Desktop.module.scss';
 

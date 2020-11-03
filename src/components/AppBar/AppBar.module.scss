@@ -1,6 +1,6 @@
 .AppBar{
    box-sizing: border-box;
-   height: 60px;
+   height: var(--app-bar_height);
    width: 100%;
    margin: 0;
    padding: 0;

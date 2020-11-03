@@ -1,0 +1,27 @@
+.FolderStructure{
+    background-color: #353944;
+    border-right: #2A2C37 solid 1px;
+    box-sizing: border-box;
+    padding: 10px;
+    height:100%;
+    width: 70vw;
+    position: fixed;
+    z-index: 50;
+    .Fixed{
+        position: fixed;
+    }
+}
+
+.Close{
+    margin-left: -70vw;
+}
+
+@media screen and (min-width:'800px'){
+    .FolderStructure{
+        width: 250px;
+        position: relative;
+    }
+    .Close{
+        margin-left: -250px;
+    }
+}

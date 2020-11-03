@@ -1,6 +1,6 @@
 .NotificationBar{
    box-sizing: border-box;
-   height: 30px;
+   height: var(--notification-bar_height);
    width: 100%;
    margin: 0 auto;
    padding: 0 15px;

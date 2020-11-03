@@ -1,4 +1,4 @@
-import React, { useContext, useState, useCallback } from 'react';
+import React, { useContext, useState } from 'react';
 
 import { Config, AppsContext } from '../../context/apps-context';
 
@@ -18,15 +18,16 @@ interface Props {
    config: Config;
 }
 
-const Application = React.forwardRef<HTMLDivElement, Props>(({ config, /*close, reduce, onFront*/ }, ref) => {
+const Application = React.forwardRef<HTMLDivElement, Props>(({ config }, ref) => {
    
     const { onFront, close, reduce } = useContext(AppsContext);
    
-   useWhyDidYouUpdate('Application', { config, /*close, reduce, onFront*/ })
+   useWhyDidYouUpdate('Application', { config })
 
    const [appLoad, setAppLoad] = useState(config.needLoader);
 
    let appWidth = config.width ? config.width : 'auto';
+   let appHeight = config.height ? config.height : 'auto';
    const zIndex = config.active ? 2 : 1;
 
    const appClasses = [classes.Application];
@@ -42,6 +43,10 @@ const Application = React.forwardRef<HTMLDivElement, Props>(({ config, /*close, 
       dragControls.start(event)
    }
 
+   function stopDrag(event: any) {
+      console.log('stop');
+   }
+
    return (
       <motion.div
          drag
@@ -51,10 +56,10 @@ const Application = React.forwardRef<HTMLDivElement, Props>(({ config, /*close, 
          dragListener={false}
          dragMomentum={false}
          className={appClasses.join(' ')}
-         style={{ width: appWidth, zIndex: zIndex }}
+         style={{ width: appWidth, height:appHeight, zIndex: zIndex }}
          onMouseDownCapture={() => onFront(config.name)}>
-         <Header onPointerDown={startDrag} name={config.name} close={() => close(config.name)} reduce={() => reduce(config.name)} />
-         <div className={classes.AppContent} >
+         <Header onPointerDown={startDrag} onPointerUp={stopDrag} name={config.name} close={() => close(config.name)} reduce={() => reduce(config.name)} />
+         <div className={classes.AppContent} style={{height:appHeight}}>
             {appLoad && <LogoAnimationLoader message="Game is loading..." />}
             {React.cloneElement(config.content, { loadApp: appLoadedHandler })}
          </div>

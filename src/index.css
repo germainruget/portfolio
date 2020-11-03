@@ -7,7 +7,17 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+:root{
+  --notification-bar_height:30px;
+  --app-bar_height:60px;
+  --core-height: calc(100vh - var(--notification-bar_height) - var(--app-bar_height)); 
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.react-pdf__Page__svg{
+  margin: auto;
 }

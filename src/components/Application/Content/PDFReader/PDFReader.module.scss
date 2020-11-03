@@ -1,0 +1,14 @@
+.PDFReader{
+    background: #ccc;
+    width: 100%;
+    height:calc(var(--core-height) - 80px)!important;
+    overflow: auto;
+    box-sizing: border-box;
+}
+
+@media screen and (min-width:'800px'){
+    .PDFReader{
+        width: 700px;
+        height:calc(var(--core-height) - 60px)!important;
+    }
+}

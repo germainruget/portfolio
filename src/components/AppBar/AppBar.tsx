@@ -22,7 +22,7 @@ interface Props {
 const AppBar: React.FC<Props> = ({ displayMenu, displaySettings, showSettings, showMenu, displayMobileMenu, showMobileMenu }) => {
    // console.log('RENDER APPBAR');
    useWhyDidYouUpdate('AppBar', { displayMenu, displaySettings, showSettings, showMenu, displayMobileMenu, showMobileMenu })
-   const {config, open} = useContext(AppsContext);
+   const { config, open } = useContext(AppsContext);
 
    const allApps = Object.keys(AppType).map(key => {
       const app = config(AppType[key].name);
@@ -57,8 +57,15 @@ const AppBar: React.FC<Props> = ({ displayMenu, displaySettings, showSettings, s
          </div>
          <AppBarIcon type='SettingTwo' action={displaySettings} active={showSettings} />
          <div className={[classes.Separator, globalClasses.DesktopOnly].join(' ')}></div>
-         <div className={globalClasses.DesktopOnly}>
-            {allApps}
+         <div className={globalClasses.DesktopOnly} style={{width:'100%'}} >
+            <div style={{display:'flex', justifyContent:'space-between', width:'100%'}}>
+               <div>
+                  {allApps}
+               </div>
+               <div>
+                  <AppBarIcon type='AppSwitch' action={displayMobileMenu} active={showMobileMenu} />
+               </div>
+            </div>
          </div>
       </div>
    );

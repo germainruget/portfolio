@@ -6,6 +6,7 @@ export interface Config {
    name: string;
    content: JSX.Element;
    width: string;
+   height?: string;
    needLoader: boolean;
    onMobile: boolean;
    active?: boolean;
@@ -49,7 +50,7 @@ const AppsContextProvider: React.FC = (props) => {
       let config;
       for (let app in AppType) {
          if (AppType[app].name === appName) {
-            config = { name: appName, content: AppType[app].content, width: AppType[app].width, needLoader: AppType[app].needLoader, onMobile: AppType[app].onMobile };
+            config = { name: appName, content: AppType[app].content, width: AppType[app].width, height: AppType[app].height, needLoader: AppType[app].needLoader, onMobile: AppType[app].onMobile };
             break;
          }
       }

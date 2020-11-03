@@ -1,64 +1,52 @@
-import React, { useState, useRef, useEffect } from 'react';
-
-import useWindoSize from '../../../../hooks/windowSize';
-import { useGesture } from 'react-use-gesture';
+import React, { Fragment, useState } from 'react';
 import { Document, Page, pdfjs } from "react-pdf";
+
+import classes from './PDFReader.module.scss';
+
+import useWindoSize from '../../../../hooks/useWindowSize';
+// import { useGesture } from 'react-use-gesture';
 
 import CV from '../../../../assets/PDF/CV_Germain_Ruget.pdf';
 
+import PDFController from './PDFController/PDFController';
+
 export interface Props {
-   loadApp?:(appLoaded:boolean) => void;
+   loadApp?: (appLoaded: boolean) => void;
 }
 
-document.addEventListener('gesturestart', (e) => e.preventDefault());
-document.addEventListener('gesturechange', (e) => e.preventDefault());
 
-const PDFReader: React.FC<Props> = ({loadApp}) => {
+const PDFReader: React.FC<Props> = ({ loadApp }) => {
    pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
    const windowSize = useWindoSize();
-   const domTarget = useRef<HTMLDivElement>(null);
 
    const [zoom, setZoom] = useState(1);
 
    const onDocumentLoadSuccess = () => {
-      if(loadApp) loadApp(false);
+      if (loadApp) loadApp(false);
    }
 
-   const bind = useGesture(
-      {
-         onPinch: ({ direction: [d] }) => {
-            console.log(d);
-            console.log(zoom);
-            let zoomBonus = 0;
-            if(d > 0 && zoom <= 3){
-               //Zoom IN
-               zoomBonus = 0.1;
-               console.log("IN")
-            }
-            else if(d < 0 && zoom >= 1){
-               //Zoom OUT
-               console.log("OUT")
-               zoomBonus = -0.1;
-            }
-            setZoom(zoom + zoomBonus);
-         }
-      },
-      { domTarget, eventOptions: { passive: false } }
-   )
+   const zoomIn = () => {
+      if(zoom >= 2.0) return;
+      setZoom(zoom + 0.1);
+   }
+   const zoomOut = () => {
+      if(zoom < .6) return;
+      setZoom(zoom - 0.1);
+   }
 
-   useEffect(() => {
-      bind();
-   }, [bind]);
+   const width = windowSize.width !== undefined && windowSize.width < 800 ? windowSize.width : undefined;
+   // const height = windowSize.height !== undefined ? (windowSize.height - 195) : 700;
 
-   const width = windowSize.width !== undefined && windowSize.width < 700 ? windowSize.width : 700;
-   console.log(width);
    return (
-      <div ref={domTarget}>
-         <Document file={CV} onLoadSuccess={onDocumentLoadSuccess} renderMode="svg" loading={<div style={{width:width, minHeight:'100%'}}></div>}>
-            <Page pageNumber={1} renderTextLayer={false} scale={zoom} width={width} />
-         </Document>
-      </div>
+      <Fragment>
+         <div className={classes.PDFReader} style={{ height: 'auto', width: width }}>
+            <Document file={CV} onLoadSuccess={onDocumentLoadSuccess} renderMode="svg" >
+               <Page pageNumber={1} renderTextLayer={false} scale={zoom} /*height={'100%'}*/ width={width} />
+            </Document>
+         </div>
+         <PDFController zoomIn={zoomIn} zoomOut={zoomOut} zoomState={zoom} />
+      </Fragment>
    );
 }
 
