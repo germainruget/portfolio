@@ -1,15 +1,29 @@
-$color:#858C97;
+$color: #858c97;
 
-.Folder{
+.Folder {
     display: flex;
     flex-direction: column;
-    color:$color;
+    color: $color;
+    padding: 2px 5px;
     cursor: pointer;
-    .Title{
-        color:darken($color, 10%);
+    .Title {
+        color: darken($color, 10%);
+        font-size: 1.1em;
     }
 }
 
-.SubFolders{
+a {
+    color: $color;
+    text-decoration: none;
+    box-sizing: border-box;
+    display: block;
+    &:hover,
+    &:active,
+    &.Active > * {
+        color: darken($color, 20%);;
+    }
+}
+
+.SubFolders {
     margin-left: 10px;
 }

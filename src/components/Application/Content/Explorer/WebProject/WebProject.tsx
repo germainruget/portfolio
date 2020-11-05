@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './ProjectDisplay.module.scss';
+import classes from './WebProject.module.scss';
 
 import Masonry from 'react-masonry-css'
 
@@ -10,7 +10,7 @@ export interface Props {
    screenshots: Array<string>;
 }
 
-const ProjectDisplay: React.FC<Props> = ({ title, content, screenshots }) => {
+const WebProject: React.FC<Props> = ({ title, content, screenshots }) => {
 
    const breakpointColumnsObj = {
       default: 3,
@@ -19,13 +19,13 @@ const ProjectDisplay: React.FC<Props> = ({ title, content, screenshots }) => {
    };
 
    const images = screenshots.map((image, index) => {
-      return <img className={classes.Images} src={image} alt='' key={index}/>;
+      return <div className={classes.Image}><img className={classes.Images} src={image} alt='' key={index} /></div>;
    });
 
    return (
-      <div>
+      <div className={classes.Container}>
          <h2>{title}</h2>
-         <div>{content}</div>
+         <div className={classes.Content}>{content}</div>
          <Masonry
             breakpointCols={breakpointColumnsObj}
             className={classes.MasonryGrid}
@@ -36,4 +36,4 @@ const ProjectDisplay: React.FC<Props> = ({ title, content, screenshots }) => {
    );
 }
 
-export default ProjectDisplay;
+export default WebProject;

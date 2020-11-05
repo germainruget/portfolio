@@ -1,6 +1,10 @@
+.Container {
+    overflow-y: auto;
+}
+
 .MasonryGrid {
     display: flex;
-    margin: 0 auto;
+    margin: 10px auto;
     width: auto;
     max-width: 1200px;
 }
@@ -9,10 +13,14 @@
     padding-left: 30px; /* gutter size */
     margin-bottom: 30px;
     background-clip: padding-box;
+}
+
+.Image {
+    border-radius: 8px;
+    overflow: hidden;
     & > img {
-        width:100%;
+        width: 100%;
         display: block;
         margin-bottom: 30px;
     }
-    
 }

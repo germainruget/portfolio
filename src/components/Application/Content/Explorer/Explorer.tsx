@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 
+import { BrowserRouter } from 'react-router-dom';
+
 import classes from './Explorer.module.scss';
 
 import FolderStructure from './FolderStructure/FolderStructure';
 import FolderContent from './FolderContent/FolderContent';
-import ProjectDisplay from './ProjectDisplay/ProjectDisplay';
-import { DATA } from './ProjectDisplay/DATA';
-import useWindowSize from '../../../../hooks/useWindowSize';
+
 
 export interface Props {
 
@@ -14,35 +14,26 @@ export interface Props {
 
 const Explorer: React.FC<Props> = () => {
 
-   const { width } = useWindowSize();
-   const mobile = width && width < 800;
-
-
-   const [folderContent, setFolderContent] = useState<JSX.Element>();
    const [folderStructureActive, setFolderStructureActive] = useState(true);
-
-   const [Ancor, Asterie, BSF] = Object.keys(DATA).map(key => {
-      return <ProjectDisplay title={DATA[key].title} content={DATA[key].content} screenshots={DATA[key].screenshots} />
-   });
 
    const STRUCTURE = [
       {
-         title: 'Projects', childs:
+         title: 'Web Projects', childs:
             [
-               { icon: 'Notes', title: 'BSF', action: () => {displayContentHandler(BSF);} },
-               { icon: 'Notes', title: 'Asterie', action: () => {displayContentHandler(Asterie);}},
-               { icon: 'Notes', title: 'Ancor', action: () => {displayContentHandler(Ancor);} },
+               { icon: 'Notes', title: 'BSF', to: '/bsf' },
+               { icon: 'Notes', title: 'Asterie', to: '/asterie' },
+               { icon: 'Notes', title: 'Ancor', to: '/ancor' },
             ],
       }
       ,
-      { title: 'Folder 2' },
-      { title: 'Folder 3' }
+      {
+         title: 'CSS Projects', childs:
+            [
+               { icon: 'CodeBrackets', title: 'Future City', to: '/future-city' },
+               { icon: 'CodeBrackets', title: 'Space Ship', to: '/space-ship' },
+            ],
+      }
    ]
-
-   const displayContentHandler = (content: JSX.Element) => {
-      setFolderContent(content);
-      if(mobile) toggleStructureHandler();
-   }
 
    const toggleStructureHandler = () => {
       setFolderStructureActive(a => !a);
@@ -50,8 +41,10 @@ const Explorer: React.FC<Props> = () => {
 
    return (
       <div className={classes.Explorer}>
-         <FolderStructure structure={STRUCTURE} active={folderStructureActive} />
-         <FolderContent content={folderContent} toggleStructure={toggleStructureHandler} width={width} active={folderStructureActive} />
+         <BrowserRouter>
+            <FolderStructure structure={STRUCTURE} active={folderStructureActive} toggleStructure={toggleStructureHandler} />
+            <FolderContent toggleStructure={toggleStructureHandler} active={folderStructureActive} />
+         </BrowserRouter>
       </div>
    );
 }

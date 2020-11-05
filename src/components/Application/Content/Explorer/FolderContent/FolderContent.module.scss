@@ -3,5 +3,7 @@
     background-color: #404552;
     box-sizing: border-box;
     padding: 10px;
-    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    // overflow-y: auto;
 }

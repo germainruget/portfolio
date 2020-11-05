@@ -7,13 +7,14 @@ import Folder, { FolderProps } from './Folder/Folder';
 export interface Props {
    structure: Array<FolderProps>;
    active: boolean;
+   toggleStructure:() => void;
 }
 
-const FolderStructure: React.FC<Props> = ({ structure, active }) => {
+const FolderStructure: React.FC<Props> = ({ structure, active, toggleStructure }) => {
 
 
    const children = structure.map(key => {
-      return <Folder icon={key.icon} title={key.title} childs={key.childs} action={key.action} key={key.title} />
+      return <Folder icon={key.icon} title={key.title} childs={key.childs} to={key.to} key={key.title} toggleStructure={toggleStructure} />
    });
 
    const style = [classes.FolderStructure];

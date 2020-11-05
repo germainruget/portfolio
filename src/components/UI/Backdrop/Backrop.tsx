@@ -5,13 +5,18 @@ import classes from './Backdrop.module.scss';
 export interface Props {
     active: boolean;
     action?: () => void;
+    style?:{};
+    className?:string;
 }
 
-const Backdrop: React.FC<Props> = ({ active, action, children }) => {
+const Backdrop: React.FC<Props> = ({ active, action, children, style, className }) => {
 
     let backdrop = null;
 
-    if (active) backdrop = <div className={classes.Backdrop} onClick={action}>{children}</div>;
+    let allClass = [classes.Backdrop];
+    if(className) allClass.push(className);
+
+    if (active) backdrop = <div className={allClass.join(' ')} onClick={action} style={{...style}} >{children}</div>;
 
     return backdrop;
 }

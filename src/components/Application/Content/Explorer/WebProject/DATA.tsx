@@ -26,8 +26,8 @@ const content = (
 );
 
 
-export const DATA:{[name: string]:{title: string, content: JSX.Element, screenshots:Array<string>}} = {
-    ancor: { title: 'Ancor', content: content, screenshots: [Ancor_2, Ancor_3, Ancor_4, Ancor_5] },
-    asterie: { title: 'Asterie', content: content, screenshots: [Asterie_1, Asterie_2] },
-    bsf: { title: 'BSF', content: content, screenshots: [BSF_1, BSF_2, BSF_3] }
+export const DATA: { [name: string]: { path: string, title: string, content: JSX.Element, screenshots: Array<string> } } = {
+    ancor: { path: '/ancor', title: 'Ancor', content: content, screenshots: [Ancor_2, Ancor_3, Ancor_4, Ancor_5] },
+    asterie: { path: '/asterie', title: 'Asterie', content: content, screenshots: [Asterie_1, Asterie_2] },
+    bsf: { path: '/bsf', title: 'BSF', content: content, screenshots: [BSF_1, BSF_2, BSF_3] }
 }
