@@ -10,17 +10,22 @@ import Settings from '../Settings/Settings';
 import MobileNavigation from '../MobileNavigation/MobileNavigation';
 
 import Application from '../Application/Application';
+import ChatHelper from '../ChatHelper/ChatHelper';
 
 interface Props {
-   displayMenu: () => void;
    showMenu: boolean;
+   displayMenu: () => void;
+
    showSettings: boolean;
-   displayMobileMenu: () => void;
-   showMobileMenu: boolean;
    setBg: (bg: any) => void;
+   
+   showMobileMenu: boolean;
+   displayMobileMenu: () => void;
+
+   showChatHelper: boolean;
 }
 
-const Core: React.FC<Props> = ({ displayMenu, setBg, showMenu, showSettings, showMobileMenu, displayMobileMenu }) => {
+const Core: React.FC<Props> = ({ displayMenu, setBg, showMenu, showSettings, showMobileMenu, displayMobileMenu, showChatHelper }) => {
    useWhyDidYouUpdate('Core', { displayMenu, setBg, showMenu, showSettings, showMobileMenu, displayMobileMenu })
    //ref pass to the application to constrain the drag to the CORE
    const constraintRef = useRef<HTMLDivElement>(null);
@@ -36,6 +41,7 @@ const Core: React.FC<Props> = ({ displayMenu, setBg, showMenu, showSettings, sho
          <MainMenu showMenu={showMenu} displayMenu={displayMenu} /*open={appsContext.open}*/ />
          <MobileNavigation showMobileMenu={showMobileMenu} displayMobileMenu={displayMobileMenu} />
          <Settings showSettings={showSettings} setBg={setBg} />
+         <ChatHelper showChat={showChatHelper} />
          {Apps}   
       </div>
    );

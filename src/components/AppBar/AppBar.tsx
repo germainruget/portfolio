@@ -17,9 +17,11 @@ interface Props {
    showSettings: boolean;
    displayMobileMenu: () => void;
    showMobileMenu: boolean;
+   displayChatHelper: () => void;
+   showChatHelper: boolean;
 }
 
-const AppBar: React.FC<Props> = ({ displayMenu, displaySettings, showSettings, showMenu, displayMobileMenu, showMobileMenu }) => {
+const AppBar: React.FC<Props> = ({ displayMenu, displaySettings, showSettings, showMenu, displayMobileMenu, showMobileMenu, displayChatHelper, showChatHelper }) => {
    // console.log('RENDER APPBAR');
    useWhyDidYouUpdate('AppBar', { displayMenu, displaySettings, showSettings, showMenu, displayMobileMenu, showMobileMenu })
    const { config, open } = useContext(AppsContext);
@@ -57,8 +59,9 @@ const AppBar: React.FC<Props> = ({ displayMenu, displaySettings, showSettings, s
          </div>
          <AppBarIcon type='SettingTwo' action={displaySettings} active={showSettings} />
          <div className={[classes.Separator, globalClasses.DesktopOnly].join(' ')}></div>
-         <div className={globalClasses.DesktopOnly} style={{width:'100%'}} >
-            <div style={{display:'flex', justifyContent:'space-between', width:'100%'}}>
+
+         <div className={globalClasses.DesktopOnly} style={{ width: '100%' }} >
+            <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
                <div>
                   {allApps}
                </div>
@@ -67,6 +70,9 @@ const AppBar: React.FC<Props> = ({ displayMenu, displaySettings, showSettings, s
                </div>
             </div>
          </div>
+
+         <AppBarIcon type='Wechat' action={displayChatHelper} active={showChatHelper} />
+
       </div>
    );
 };

@@ -17,12 +17,9 @@ const CodePreview: React.FC<Props> = ({ language, content }) => {
     SyntaxHighlighter.registerLanguage('scss', scss);
 
     return (
-        <div style={{overflow:'auto'}}>
-            <SyntaxHighlighter language={language} style={materialDark} wrapLongLines>
-                {content}
-            </SyntaxHighlighter>
-
-        </div>
+        <SyntaxHighlighter language={language} style={materialDark} wrapLongLines>
+            {content}
+        </SyntaxHighlighter>
     );
 }
 

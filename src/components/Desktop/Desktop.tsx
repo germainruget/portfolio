@@ -18,6 +18,7 @@ const Desktop: React.FC = () => {
    const [showMenu, setShowMenu] = useState(false);
    const [showSettings, setShowSettings] = useState(false);
    const [showMobileMenu, setShowMobileMenu] = useState(false);
+   const [showChatHelper, setShowChatHelper] = useState(false);
 
    const [background, setBackground] = useState(defaultBG);
    const [loadBackground, setLoadBackground] = useState(false);
@@ -34,23 +35,34 @@ const Desktop: React.FC = () => {
 
 
    const displayMainMenu = useCallback(() => {
-      setShowMenu(!showMenu);
+      setShowMenu(v => !v);
       setShowSettings(false);
       setShowMobileMenu(false);
-   }, [showMenu]);
+      setShowChatHelper(false);
+   }, []);
 
    const displayMobileMenu = useCallback(() => {
-      setShowMobileMenu(!showMobileMenu);
+      setShowMobileMenu(v => !v);
       setShowSettings(false);
       setShowMenu(false);
-   }, [showMobileMenu]);
+      setShowChatHelper(false);
+   }, []);
 
    const displaySettings = useCallback((cb?: void) => {
-      setShowSettings(!showSettings);
+      setShowSettings(v => !v);
+      setShowMenu(false);
+      setShowMobileMenu(false);
+      setShowChatHelper(false);
+      return cb;
+   }, []);
+
+   const displayChatHelper = useCallback((cb?: void) => {
+      setShowChatHelper(v => !v);
+      setShowSettings(false);
       setShowMenu(false);
       setShowMobileMenu(false);
       return cb;
-   }, [showSettings]);
+   }, []);
 
    const changeBackground = useCallback((bg): void => {
       setBackground(bg);
@@ -69,14 +81,17 @@ const Desktop: React.FC = () => {
                   showMobileMenu={showMobileMenu}
                   displayMobileMenu={displayMobileMenu}
                   showSettings={showSettings}
-                  setBg={changeBackground} />
+                  setBg={changeBackground}
+                  showChatHelper={showChatHelper} />
 
                <AppBar displayMenu={displayMainMenu}
                   showMenu={showMenu}
                   displaySettings={displaySettings}
                   showSettings={showSettings}
                   displayMobileMenu={displayMobileMenu}
-                  showMobileMenu={showMobileMenu} />
+                  showMobileMenu={showMobileMenu}
+                  displayChatHelper={displayChatHelper}
+                  showChatHelper={showChatHelper} />
             </AppsContextProvider>
          </div>
       )
