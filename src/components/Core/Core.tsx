@@ -1,5 +1,5 @@
 import React, { useContext, useRef } from 'react';
-import useWhyDidYouUpdate from '../../hooks/whyDidYouUpdate';
+import useWhyDidYouUpdate from '../../hooks/useWhyDidYouUpdate';
 
 import { Config, AppsContext } from '../../context/apps-context';
 
@@ -11,38 +11,38 @@ import MobileNavigation from '../MobileNavigation/MobileNavigation';
 
 import Application from '../Application/Application';
 import ChatHelper from '../ChatHelper/ChatHelper';
+import { Action } from '../Desktop/Desktop';
+import { BrowserRouter } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
 
 interface Props {
-   showMenu: boolean;
-   displayMenu: () => void;
-
-   showSettings: boolean;
+   menuState: any
+   changeMenu: (type: Action['type']) => void;
    setBg: (bg: any) => void;
-   
-   showMobileMenu: boolean;
-   displayMobileMenu: () => void;
-
-   showChatHelper: boolean;
 }
 
-const Core: React.FC<Props> = ({ displayMenu, setBg, showMenu, showSettings, showMobileMenu, displayMobileMenu, showChatHelper }) => {
-   useWhyDidYouUpdate('Core', { displayMenu, setBg, showMenu, showSettings, showMobileMenu, displayMobileMenu })
+const Core: React.FC<Props> = ({ changeMenu, setBg, menuState }) => {
+   useWhyDidYouUpdate('Core', { setBg, changeMenu, menuState })
    //ref pass to the application to constrain the drag to the CORE
    const constraintRef = useRef<HTMLDivElement>(null);
 
    const appsContext = useContext(AppsContext);
 
    const Apps = appsContext.appsConfig.map((config: Config) => {
-      return <Application ref={constraintRef} config={config} /*close={appsContext.close} reduce={appsContext.reduce} onFront={appsContext.onFront}*/ key={config.name} />
+      return <Application ref={constraintRef} config={config} key={config.name} />
    })
 
    return (
       <div ref={constraintRef} className={classes.Core}>
-         <MainMenu showMenu={showMenu} displayMenu={displayMenu} /*open={appsContext.open}*/ />
-         <MobileNavigation showMobileMenu={showMobileMenu} displayMobileMenu={displayMobileMenu} />
-         <Settings showSettings={showSettings} setBg={setBg} />
-         <ChatHelper showChat={showChatHelper} />
-         {Apps}   
+         <BrowserRouter>
+            <AnimatePresence>
+               {menuState.showMenu && <MainMenu displayMenu={() => changeMenu('openMenu')} />}
+               {menuState.showMobileMenu && <MobileNavigation displayMobileMenu={() => changeMenu('openMobileMenu')} />}
+               {menuState.showSettings && <Settings setBg={setBg} />}
+               {menuState.showChatHelper && <ChatHelper />}
+            </AnimatePresence>
+            {Apps}
+         </BrowserRouter>
       </div>
    );
 }

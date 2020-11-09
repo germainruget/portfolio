@@ -1,35 +1,38 @@
 .ChatHelper {
    width: 100vw;
    height: 100%;
-   margin-left: -100vw;
    box-sizing: border-box;
    background: rgba(0, 0, 0, 0.75);
    backdrop-filter: blur(5px);
-   transition: all ease-in 0.2s;
    padding: 10px;
    color: #fff;
    position: absolute;
    top: 0;
+   right: 0;
    z-index: 10;
+   display: flex;
+   flex-direction: column;
    h2 {
       text-align: center;
    }
 }
 
-.Active {
-   margin-left: 0;
+@media screen and (min-width: 500px) {
+   $width: 500px;
+   .ChatHelper {
+      width: $width;
+   }
 }
 
 
-@media screen and (min-width: 500px) {
-   $width: 500px;
-   $offset: 25px;
-   .ChatHelper {
-      width: $width;
-      margin-left: -$width - $offset;
-   }
-   .Active {
-      margin-left: -$offset;
-   }
-   
+/********************************/
+
+.Chat{
+   padding: 10px;
+   display: flex;
+   flex-direction: column;
+   background-color: #fff;
+   height: 100%;
+   overflow-y: auto;
+   overflow-x: hidden;
 }

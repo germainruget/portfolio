@@ -1,7 +1,5 @@
 import React, { useState, useCallback, useContext } from 'react';
-import useWhyDidYouUpdate from '../../hooks/whyDidYouUpdate';
-
-import useWindowSize from '../../hooks/useWindowSize';
+import useWhyDidYouUpdate from '../../hooks/useWhyDidYouUpdate';
 
 import AppType, { Apps } from '../../config/AppType';
 import { AppsContext } from '../../context/apps-context';
@@ -10,31 +8,25 @@ import classes from './MainMenu.module.scss';
 
 import AppIcon from '../UI/AppIcon/AppIcon';
 import Search from './Search/Search';
+import { motion } from 'framer-motion';
 
 interface Props {
    displayMenu: () => void;
-   showMenu: boolean;
-   // open: (appName: string) => void;
 }
 
-const MainMenu: React.FC<Props> = ({ displayMenu, showMenu, /*open*/ }) => {
-   useWhyDidYouUpdate('MainMenu', { displayMenu, showMenu, /*open*/ });
+const MainMenu: React.FC<Props> = ({ displayMenu }) => {
+   useWhyDidYouUpdate('MainMenu', { displayMenu });
 
    const { open } = useContext(AppsContext);
-   const windowSize = useWindowSize();
-   let menu = null;
 
    const [apps, setApps] = useState(AppType);
+
    const iconsApps = Object.keys(apps).map(key => {
-
-      if (windowSize.width !== undefined && windowSize.width < 800 && !apps[key].onMobile) {
-         return null;
-      }
-
       return <AppIcon size='big'
          title={apps[key].name}
          action={() => { open(apps[key].name); displayMenu() }}
          type={apps[key].icon}
+         noMobile={!apps[key].onMobile}
          key={key} />
    });
 
@@ -42,18 +34,31 @@ const MainMenu: React.FC<Props> = ({ displayMenu, showMenu, /*open*/ }) => {
       setApps(filteredApps);
    }, []);
 
-   if (showMenu) {
-      menu = (
-         <div className={classes.MainMenu} >
-            <Search filter={filterApps} />
-            <div className={classes.Icons}>
-               {iconsApps}
-            </div>
-         </div >
-      );
+   const showMenu = {
+      hidden: {
+         y: '100vw',
+         scale: 0,
+         transition:{
+            duration:.2
+         }
+      },
+      show: {
+         y: 0, 
+         scale: 1,
+         transition:{
+            duration:.2
+         }
+      }
    }
 
-   return menu;
+   return (
+      <motion.div variants={showMenu} initial="hidden" animate="show" exit="hidden" className={classes.MainMenu} >
+         <Search filter={filterApps} />
+         <div className={classes.Icons}>
+            {iconsApps}
+         </div>
+      </motion.div >
+   );
 }
 
 export default React.memo(MainMenu);

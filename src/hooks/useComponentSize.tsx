@@ -1,7 +1,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 
-const useComponentResize = () => {
+const useComponentSize = () => {
    const ref = useRef<HTMLInputElement | null>(null);
 
    const [boundingBox, setBoundingBox] = useState<DOMRect>(new DOMRect());
@@ -40,4 +40,4 @@ const useComponentResize = () => {
    return result;
 }
 
-export default useComponentResize;
+export default useComponentSize;

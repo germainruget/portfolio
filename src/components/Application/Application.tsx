@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 
 import { Config, AppsContext } from '../../context/apps-context';
 
-import useWhyDidYouUpdate from '../../hooks/whyDidYouUpdate';
+import useWhyDidYouUpdate from '../../hooks/useWhyDidYouUpdate';
 
 import { motion, useDragControls } from 'framer-motion';
 

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import AppType from '../../config/AppType';
 
-import useWhyDidYouUpdate from '../../hooks/whyDidYouUpdate';
+import useWhyDidYouUpdate from '../../hooks/useWhyDidYouUpdate';
 
 import { AppsContext } from '../../context/apps-context';
 
@@ -9,21 +9,15 @@ import classes from './AppBar.module.scss';
 import globalClasses from '../../global/style/Global.module.scss';
 
 import AppBarIcon from '../UI/AppIcon/AppIcon';
+import { Action } from '../Desktop/Desktop';
 
 interface Props {
-   displayMenu: () => void;
-   showMenu: boolean;
-   displaySettings: () => void;
-   showSettings: boolean;
-   displayMobileMenu: () => void;
-   showMobileMenu: boolean;
-   displayChatHelper: () => void;
-   showChatHelper: boolean;
+   menuState: any;
+   changeMenu: (type: Action['type']) => void;
 }
 
-const AppBar: React.FC<Props> = ({ displayMenu, displaySettings, showSettings, showMenu, displayMobileMenu, showMobileMenu, displayChatHelper, showChatHelper }) => {
-   // console.log('RENDER APPBAR');
-   useWhyDidYouUpdate('AppBar', { displayMenu, displaySettings, showSettings, showMenu, displayMobileMenu, showMobileMenu })
+const AppBar: React.FC<Props> = ({ menuState, changeMenu }) => {
+   useWhyDidYouUpdate('AppBar', { menuState, changeMenu })
    const { config, open } = useContext(AppsContext);
 
    const allApps = Object.keys(AppType).map(key => {
@@ -53,11 +47,11 @@ const AppBar: React.FC<Props> = ({ displayMenu, displaySettings, showSettings, s
 
    return (
       <div className={classes.AppBar}>
-         <AppBarIcon type='GridTwo' action={displayMenu} active={showMenu} />
+         <AppBarIcon type='GridTwo' action={() => changeMenu('openMenu')} active={menuState.showMenu} />
          <div className={globalClasses.MobileOnly}>
-            <AppBarIcon type='AppSwitch' action={displayMobileMenu} active={showMobileMenu} />
+            <AppBarIcon type='AppSwitch' action={() => changeMenu('openMobileMenu')} active={menuState.showMobileMenu} />
          </div>
-         <AppBarIcon type='SettingTwo' action={displaySettings} active={showSettings} />
+         <AppBarIcon type='SettingTwo' action={() => changeMenu('openSettings')} active={menuState.showSettings} />
          <div className={[classes.Separator, globalClasses.DesktopOnly].join(' ')}></div>
 
          <div className={globalClasses.DesktopOnly} style={{ width: '100%' }} >
@@ -66,12 +60,12 @@ const AppBar: React.FC<Props> = ({ displayMenu, displaySettings, showSettings, s
                   {allApps}
                </div>
                <div>
-                  <AppBarIcon type='AppSwitch' action={displayMobileMenu} active={showMobileMenu} />
+                  <AppBarIcon type='AppSwitch' action={() => changeMenu('openMobileMenu')} active={menuState.showMobileMenu} />
                </div>
             </div>
          </div>
 
-         <AppBarIcon type='Wechat' action={displayChatHelper} active={showChatHelper} />
+         <AppBarIcon type='Wechat' action={() => changeMenu('openChatHelper')} active={menuState.showChatHelper} />
 
       </div>
    );

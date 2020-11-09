@@ -1,30 +1,30 @@
+import { motion } from 'framer-motion';
 import React from 'react';
-import useWhyDidYouUpdate from '../../hooks/whyDidYouUpdate';
+import useWhyDidYouUpdate from '../../hooks/useWhyDidYouUpdate';
 
 import classes from './Settings.module.scss';
 
 import Wallpapers from './Wallpapers/Wallpapers';
 
-interface Props{
-   showSettings: boolean;
-   setBg:(bg:any) => void;
+interface Props {
+   setBg: (bg: any) => void;
 }
 
-const Settings:React.FC<Props> = ({setBg, showSettings}) => {
-   useWhyDidYouUpdate('Settings', {setBg, showSettings})
-   
-   const settingsClasses = [classes.Settings];
-   if(showSettings){
-      settingsClasses.push(classes.Active);
+const Settings: React.FC<Props> = ({ setBg }) => {
+   useWhyDidYouUpdate('Settings', { setBg })
+
+   const showMenu = {
+      hidden: { x: -500 },
+      show: { x: 0 }
    }
 
    return (
-      <div className={settingsClasses.join(' ')}>
+      <motion.div variants={showMenu} initial="hidden" animate="show" exit="hidden" className={classes.Settings}>
          <h2>Settings</h2>
-         <hr/>
+         <hr />
          <h3>Wallpaper</h3>
-         <Wallpapers setBg={setBg}/>
-      </div>
+         <Wallpapers setBg={setBg} />
+      </motion.div>
    );
 }
 

@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 
-import { BrowserRouter } from 'react-router-dom';
-
 import classes from './Explorer.module.scss';
 
 import FolderStructure from './FolderStructure/FolderStructure';
@@ -41,10 +39,8 @@ const Explorer: React.FC<Props> = () => {
 
    return (
       <div className={classes.Explorer}>
-         <BrowserRouter>
-            <FolderStructure structure={STRUCTURE} active={folderStructureActive} toggleStructure={toggleStructureHandler} />
-            <FolderContent toggleStructure={toggleStructureHandler} active={folderStructureActive} />
-         </BrowserRouter>
+         <FolderStructure structure={STRUCTURE} active={folderStructureActive} toggleStructure={toggleStructureHandler} />
+         <FolderContent toggleStructure={toggleStructureHandler} active={folderStructureActive} />
       </div>
    );
 }

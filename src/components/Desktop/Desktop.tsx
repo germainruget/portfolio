@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useReducer } from 'react';
 
 import AppsContextProvider from '../../context/apps-context';
 
@@ -12,13 +12,47 @@ import AppBar from '../AppBar/AppBar';
 import NotificationBar from '../NotificationBar/NotificationBar';
 import Core from '../Core/Core';
 
+interface State {
+   showMenu: boolean,
+   showSettings: boolean,
+   showMobileMenu: boolean,
+   showChatHelper: boolean,
+}
+
+const initialState: State = {
+   showMenu: false,
+   showSettings: false,
+   showMobileMenu: false,
+   showChatHelper: true,
+}
+
+export interface Action {
+   type: 'openMenu' | 'openSettings' | 'openMobileMenu' | 'openChatHelper'
+}
+
+const menusReducer = (state: State, action: Action) => {
+   switch (action.type) {
+      case 'openMenu':
+         return { ...initialState, showMenu: !state.showMenu };
+      case 'openSettings':
+         return { ...initialState, showSettings: !state.showSettings };
+      case 'openMobileMenu':
+         return { ...initialState, showMobileMenu: !state.showMobileMenu };
+      case 'openChatHelper':
+         return { ...initialState, showChatHelper: !state.showChatHelper };
+      default:
+         throw new Error('Forgot to define an action');
+   }
+}
+
 const Desktop: React.FC = () => {
    const windowSize = useWindowSize();
 
-   const [showMenu, setShowMenu] = useState(false);
-   const [showSettings, setShowSettings] = useState(false);
-   const [showMobileMenu, setShowMobileMenu] = useState(false);
-   const [showChatHelper, setShowChatHelper] = useState(false);
+   const [state, dispatch] = useReducer(menusReducer, initialState);
+
+   const changeMenu = useCallback((action: Action["type"]) => {
+      dispatch({ type: action });
+   }, [])
 
    const [background, setBackground] = useState(defaultBG);
    const [loadBackground, setLoadBackground] = useState(false);
@@ -34,36 +68,6 @@ const Desktop: React.FC = () => {
    }, [fetchImage]);
 
 
-   const displayMainMenu = useCallback(() => {
-      setShowMenu(v => !v);
-      setShowSettings(false);
-      setShowMobileMenu(false);
-      setShowChatHelper(false);
-   }, []);
-
-   const displayMobileMenu = useCallback(() => {
-      setShowMobileMenu(v => !v);
-      setShowSettings(false);
-      setShowMenu(false);
-      setShowChatHelper(false);
-   }, []);
-
-   const displaySettings = useCallback((cb?: void) => {
-      setShowSettings(v => !v);
-      setShowMenu(false);
-      setShowMobileMenu(false);
-      setShowChatHelper(false);
-      return cb;
-   }, []);
-
-   const displayChatHelper = useCallback((cb?: void) => {
-      setShowChatHelper(v => !v);
-      setShowSettings(false);
-      setShowMenu(false);
-      setShowMobileMenu(false);
-      return cb;
-   }, []);
-
    const changeBackground = useCallback((bg): void => {
       setBackground(bg);
    }, []);
@@ -76,22 +80,14 @@ const Desktop: React.FC = () => {
 
             <NotificationBar />
             <AppsContextProvider>
-               <Core showMenu={showMenu}
-                  displayMenu={displayMainMenu}
-                  showMobileMenu={showMobileMenu}
-                  displayMobileMenu={displayMobileMenu}
-                  showSettings={showSettings}
-                  setBg={changeBackground}
-                  showChatHelper={showChatHelper} />
+               <Core
+                  menuState={state}
+                  changeMenu={changeMenu}
+                  setBg={changeBackground} />
 
-               <AppBar displayMenu={displayMainMenu}
-                  showMenu={showMenu}
-                  displaySettings={displaySettings}
-                  showSettings={showSettings}
-                  displayMobileMenu={displayMobileMenu}
-                  showMobileMenu={showMobileMenu}
-                  displayChatHelper={displayChatHelper}
-                  showChatHelper={showChatHelper} />
+               <AppBar
+                  menuState={state}
+                  changeMenu={changeMenu} />
             </AppsContextProvider>
          </div>
       )

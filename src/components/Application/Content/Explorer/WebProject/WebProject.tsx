@@ -19,7 +19,7 @@ const WebProject: React.FC<Props> = ({ title, content, screenshots }) => {
    };
 
    const images = screenshots.map((image, index) => {
-      return <div className={classes.Image}><img className={classes.Images} src={image} alt='' key={index} /></div>;
+      return <div className={classes.Image} key={index}><img className={classes.Images} src={image} alt='' /></div>;
    });
 
    return (

@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Icon from '@icon-park/react/es/all';
 
 import classes from './AppIcon.module.scss';
+import global from '../../../global/style/Global.module.scss'
 
 interface Props {
    size?: 'classic' | 'big' | undefined;
@@ -12,9 +13,10 @@ interface Props {
    action: () => void;
    active?: boolean;
    open?: boolean;
+   noMobile?:boolean;
 }
 
-const AppIcon: React.FC<Props> = ({ size, active, open, action, title, type }) => {
+const AppIcon: React.FC<Props> = ({ size, active, open, action, title, type, noMobile = false }) => {
 
    let defineSize = size ? size : 'classic';
    let defineTitle = <span className={classes.Title}></span>;
@@ -33,6 +35,10 @@ const AppIcon: React.FC<Props> = ({ size, active, open, action, title, type }) =
    }
    else if (open) {
       iconClasses.push(classes.Open);
+   }
+
+   if(noMobile) {
+      iconClasses.push(global.DesktopOnly);
    }
 
    return (
