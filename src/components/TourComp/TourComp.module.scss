@@ -1,0 +1,7 @@
+.OpenApp {
+   cursor: pointer;
+   text-decoration: underline;
+   &:hover {
+      color: #3b3838;
+   }
+}

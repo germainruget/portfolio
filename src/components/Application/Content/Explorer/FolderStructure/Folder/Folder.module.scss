@@ -13,14 +13,14 @@ $color: #858c97;
 }
 
 a {
-    color: $color;
     text-decoration: none;
     box-sizing: border-box;
     display: block;
+    color: darken($color, 20%);;
     &:hover,
     &:active,
     &.Active > * {
-        color: darken($color, 20%);;
+        color: $color;
     }
 }
 

@@ -50,17 +50,17 @@ const Calculator = () => {
 
    return ( 
       <div className={classes.Calculator}>
-         <div className={classes.Screen}>{calcul}</div>
+         <div className={classes.Screen}>{calcul.length > 0 ? calcul : 0}</div>
          <div className={classes.ButtonsContainer}>
             <div className={classes.ButtonsNumber}>
                {buttons.reverse()}
             </div>
             <div className={classes.ButtonsActions}>
-               <Button clicked={() => setCalcul([])}>C</Button>
-               <Button clicked={() => displayCalcul('*')}>x</Button>
-               <Button clicked={() => displayCalcul('+')}>+</Button>
-               <Button clicked={() => displayCalcul('-')}>-</Button>
-               <Button clicked={makeCalcul}>=</Button>
+               <Button type="action" clicked={() => setCalcul([])}>C</Button>
+               <Button type="action" clicked={() => displayCalcul('*')}>x</Button>
+               <Button type="action" clicked={() => displayCalcul('+')}>+</Button>
+               <Button type="action" clicked={() => displayCalcul('-')}>-</Button>
+               <Button type="action" clicked={makeCalcul}>=</Button>
             </div>
          </div>
       </div>

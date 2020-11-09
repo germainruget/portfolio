@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import classes from './Explorer.module.scss';
 
 import FolderStructure from './FolderStructure/FolderStructure';
 import FolderContent from './FolderContent/FolderContent';
-
 
 export interface Props {
 
@@ -37,10 +36,27 @@ const Explorer: React.FC<Props> = () => {
       setFolderStructureActive(a => !a);
    }
 
+   const explorerRef = useRef<HTMLDivElement >(null);
+
+   const [elemSize, setElemSize] = useState(0);
+   
+   useEffect(() => {
+      const resizeObserver = new ResizeObserver((entries) => {
+         for(let entry of entries){
+            setElemSize(entry.contentRect.width);
+         }
+      });
+   
+      if (explorerRef.current) {
+         resizeObserver.observe(explorerRef.current);
+      }
+
+   }, []);
+
    return (
-      <div className={classes.Explorer}>
-         <FolderStructure structure={STRUCTURE} active={folderStructureActive} toggleStructure={toggleStructureHandler} />
-         <FolderContent toggleStructure={toggleStructureHandler} active={folderStructureActive} />
+      <div ref={explorerRef} className={classes.Explorer} >
+         <FolderStructure structure={STRUCTURE} active={folderStructureActive} toggleStructure={toggleStructureHandler} width={elemSize} />
+         <FolderContent toggleStructure={toggleStructureHandler} active={folderStructureActive}  width={elemSize} />
       </div>
    );
 }

@@ -1,5 +1,4 @@
 import React, { useContext, useState, useEffect } from 'react';
-import useWhyDidYouUpdate from '../../hooks/useWhyDidYouUpdate';
 
 import AppType from '../../config/AppType';
 import { AppsContext } from '../../context/apps-context';
@@ -15,7 +14,6 @@ export interface Props {
 }
 
 const MobileNavigaton: React.FC<Props> = ({ displayMobileMenu }) => {
-   useWhyDidYouUpdate('MobileNavigaton', { displayMobileMenu });
 
    const appsContext = useContext(AppsContext);
    const [appsOpened, setAppsOpened] = useState<Array<AppInfo>>([]);

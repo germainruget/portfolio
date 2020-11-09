@@ -33,13 +33,13 @@ export interface Action {
 const menusReducer = (state: State, action: Action) => {
    switch (action.type) {
       case 'openMenu':
-         return { ...initialState, showMenu: !state.showMenu };
+         return { ...initialState, showChatHelper: state.showChatHelper, showMenu: !state.showMenu };
       case 'openSettings':
-         return { ...initialState, showSettings: !state.showSettings };
+         return { ...initialState, showChatHelper: state.showChatHelper, showSettings: !state.showSettings };
       case 'openMobileMenu':
-         return { ...initialState, showMobileMenu: !state.showMobileMenu };
+         return { ...initialState, showChatHelper: state.showChatHelper, showMobileMenu: !state.showMobileMenu };
       case 'openChatHelper':
-         return { ...initialState, showChatHelper: !state.showChatHelper };
+         return { ...state, showChatHelper: !state.showChatHelper };
       default:
          throw new Error('Forgot to define an action');
    }

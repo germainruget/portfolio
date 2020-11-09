@@ -1,19 +1,19 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, ReactText } from 'react';
 
 import classes from './ChatHelper.module.scss';
 import Message from './Message/Message';
 
-import DATA from './DATA.json';
+import { DATA } from './DATA';
 import { motion } from 'framer-motion';
 
 export interface MessageInt {
    id: number;
-   text: string;
+   text: JSX.Element;
    question: boolean;
    clicked: boolean;
 }
 
-const ChatHelper: React.FC<{}> = ({}) => {
+const ChatHelper: React.FC<{}> = () => {
    const dataLength = DATA.length;
    const [questionOrder, setQuestionOrder] = useState<number[]>([]);
    const [message, setMessages] = useState<MessageInt[]>([]);
@@ -99,36 +99,41 @@ const ChatHelper: React.FC<{}> = ({}) => {
 
    useEffect(scrollToBottom, [message]);
 
+   const test = (latest: { [key: string]: ReactText }) => {
+      console.log(latest.opacity);
+      if (latest.opacity === 1) scrollToBottom();
+   }
 
    return (
       <motion.div variants={showMenu} initial="hidden" animate="show" exit="hidden" className={classes.ChatHelper}>
          <h2>Chat</h2>
-         <hr />
-         {restart ?
-            <motion.div variants={containerMotion} initial="hidden" animate="show" className={classes.Chat}>
-               <motion.div>
-                  <Message id={-1} clicked > Bonjour et bienvenue ! Que puis-je faire pour toi ? </Message>
+         <div className={classes.Scroll}>
+            {restart ?
+               <motion.div variants={containerMotion} initial="hidden" animate="show" className={classes.Chat}>
+                  <motion.div>
+                     <Message id={-1} clicked > Bonjour et bienvenue ! Que puis-je faire pour toi ? </Message>
+                  </motion.div>
+                  {message.map((mess, index) => {
+                     return (
+                        <motion.div onUpdate={test} variants={!mess.clicked ? itemMotion : undefined} key={mess.id + '-' + index}>
+                           <Message
+                              question={mess.question}
+                              clicked={mess.clicked}
+                              click={clickedQuestionHandler}
+                              id={mess.id}>
+                              {mess.text}
+                           </Message>
+                        </motion.div>
+                     )
+                  })}
+                  {questionOrder.length === dataLength &&
+                     <motion.div variants={itemMotion}>
+                        <Message id={-1} clicked > Merci et bonne visite ! </Message>
+                     </motion.div>}
+                  <div ref={chatEndRef}></div>
                </motion.div>
-               {message.map((mess, index) => {
-                  return (
-                     <motion.div variants={!mess.clicked ? itemMotion : undefined} key={mess.id + '-' + index}>
-                        <Message
-                           question={mess.question}
-                           clicked={mess.clicked}
-                           click={clickedQuestionHandler}
-                           id={mess.id}>
-                           {mess.text}
-                        </Message>
-                     </motion.div>
-                  )
-               })}
-               {questionOrder.length === dataLength &&
-                  <motion.div variants={itemMotion}>
-                     <Message id={-1} clicked > Merci et bonne visite ! </Message>
-                  </motion.div>}
-               <div ref={chatEndRef}></div>
-            </motion.div>
-            : null}
+               : null}
+         </div>
       </motion.div>
    );
 }

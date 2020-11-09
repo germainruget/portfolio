@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
 import React from 'react';
-import useWhyDidYouUpdate from '../../hooks/useWhyDidYouUpdate';
 
 import classes from './Settings.module.scss';
 
@@ -11,7 +10,6 @@ interface Props {
 }
 
 const Settings: React.FC<Props> = ({ setBg }) => {
-   useWhyDidYouUpdate('Settings', { setBg })
 
    const showMenu = {
       hidden: { x: -500 },

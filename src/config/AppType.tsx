@@ -24,8 +24,8 @@ export interface Apps {
 
 
 const AppType:Apps = {
-   CALCULATOR: { name: 'Calculator', icon: 'Calculator', content: <Calculator />, needLoader: false, onMobile: true, appBar: true, width: '200px'},
-   BURGER: { name: 'Burger', icon: 'Hamburger', content: <BurgerBuilder />, needLoader: false, onMobile: true, appBar: true, width: '500px' },
+   CALCULATOR: { name: 'Calculator', icon: 'Calculator', content: <Calculator />, needLoader: false, onMobile: true, appBar: false, width: '200px'},
+   BURGER: { name: 'Burger', icon: 'Hamburger', content: <BurgerBuilder />, needLoader: false, onMobile: true, appBar: false, width: '500px' },
    LEVAINGAME: { name: 'Levain', icon: 'GameHandle', content: <LevainGame />, needLoader: true, onMobile: false, appBar: false, width: '70%' },
    WEATHER: { name: 'Weather', icon: 'Sunny', content: <Weather />, needLoader: false, onMobile: true, appBar: false, width: '450px' },
    PDFREADER: { name: 'PDFReader', icon: 'FilePdf', content: <PDFReader />, needLoader: true, onMobile: true, appBar: true, width: '', height:'100%' },

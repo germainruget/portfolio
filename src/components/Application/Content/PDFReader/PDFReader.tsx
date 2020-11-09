@@ -39,14 +39,14 @@ const PDFReader: React.FC<Props> = ({ loadApp }) => {
    // const height = windowSize.height !== undefined ? (windowSize.height - 195) : 700;
 
    return (
-      <Fragment>
+      <div style={{display:'flex', flexDirection:'column'}}>
          <div className={classes.PDFReader} style={{ height: 'auto', width: width }}>
             <Document file={CV} onLoadSuccess={onDocumentLoadSuccess} renderMode="svg" >
                <Page pageNumber={1} renderTextLayer={false} scale={zoom} /*height={'100%'}*/ width={width} />
             </Document>
          </div>
          <PDFController zoomIn={zoomIn} zoomOut={zoomOut} zoomState={zoom} />
-      </Fragment>
+      </div>
    );
 }
 

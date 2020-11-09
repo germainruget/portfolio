@@ -1,5 +1,4 @@
 import React, { useContext, useRef } from 'react';
-import useWhyDidYouUpdate from '../../hooks/useWhyDidYouUpdate';
 
 import { Config, AppsContext } from '../../context/apps-context';
 
@@ -22,27 +21,28 @@ interface Props {
 }
 
 const Core: React.FC<Props> = ({ changeMenu, setBg, menuState }) => {
-   useWhyDidYouUpdate('Core', { setBg, changeMenu, menuState })
    //ref pass to the application to constrain the drag to the CORE
    const constraintRef = useRef<HTMLDivElement>(null);
 
-   const appsContext = useContext(AppsContext);
+   const { appsConfig } = useContext(AppsContext);
 
-   const Apps = appsContext.appsConfig.map((config: Config) => {
+   const Apps = appsConfig.map((config: Config) => {
       return <Application ref={constraintRef} config={config} key={config.name} />
    })
 
    return (
-      <div ref={constraintRef} className={classes.Core}>
-         <BrowserRouter>
-            <AnimatePresence>
-               {menuState.showMenu && <MainMenu displayMenu={() => changeMenu('openMenu')} />}
-               {menuState.showMobileMenu && <MobileNavigation displayMobileMenu={() => changeMenu('openMobileMenu')} />}
-               {menuState.showSettings && <Settings setBg={setBg} />}
-               {menuState.showChatHelper && <ChatHelper />}
-            </AnimatePresence>
-            {Apps}
-         </BrowserRouter>
+      <div className={classes.Core} >
+         <div className={classes.CoreContent} ref={constraintRef} >
+            <BrowserRouter>
+               <AnimatePresence>
+                  {menuState.showMenu && <MainMenu key='MainMenu' displayMenu={() => changeMenu('openMenu')} />}
+                  {menuState.showMobileMenu && <MobileNavigation key='MobileNavigation' displayMobileMenu={() => changeMenu('openMobileMenu')} />}
+                  {menuState.showSettings && <Settings key='Settings' setBg={setBg} />}
+               </AnimatePresence>
+               {Apps}
+            </BrowserRouter>
+         </div>
+         {menuState.showChatHelper && <ChatHelper key='ChatHelper' />}
       </div>
    );
 }

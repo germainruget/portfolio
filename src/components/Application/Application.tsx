@@ -2,8 +2,6 @@ import React, { useContext, useState } from 'react';
 
 import { Config, AppsContext } from '../../context/apps-context';
 
-import useWhyDidYouUpdate from '../../hooks/useWhyDidYouUpdate';
-
 import { motion, useDragControls } from 'framer-motion';
 
 
@@ -19,10 +17,8 @@ interface Props {
 }
 
 const Application = React.forwardRef<HTMLDivElement, Props>(({ config }, ref) => {
-   
-    const { onFront, close, reduce } = useContext(AppsContext);
-   
-   useWhyDidYouUpdate('Application', { config })
+
+   const { onFront, close, reduce } = useContext(AppsContext);
 
    const [appLoad, setAppLoad] = useState(config.needLoader);
 
@@ -56,10 +52,10 @@ const Application = React.forwardRef<HTMLDivElement, Props>(({ config }, ref) =>
          dragListener={false}
          dragMomentum={false}
          className={appClasses.join(' ')}
-         style={{ width: appWidth, height:appHeight, zIndex: zIndex }}
+         style={{ width: appWidth, height: appHeight, zIndex: zIndex }}
          onMouseDownCapture={() => onFront(config.name)}>
          <Header onPointerDown={startDrag} onPointerUp={stopDrag} name={config.name} close={() => close(config.name)} reduce={() => reduce(config.name)} />
-         <div className={classes.AppContent} style={{height:appHeight}}>
+         <div className={classes.AppContent} style={{ height: appHeight }}>
             {appLoad && <LogoAnimationLoader message="Game is loading..." />}
             {React.cloneElement(config.content, { loadApp: appLoadedHandler })}
          </div>

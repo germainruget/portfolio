@@ -1,4 +1,28 @@
-.Button{
-   width: 42px;
-   height:42px;
+.Button {
+   width: 37px;
+   height: 37px;
+   border-radius: 50%;
+   font-size: 1.2em;
+   border: none;
+   margin: 5px;
+   box-sizing: border-box;
+   background-color: #2f2b39;
+   color: #919096;
+   cursor: pointer;
+   &:focus {
+      outline: none;
+      box-shadow: none;
+   }
+   &:hover {
+      background-color: #bfbfc1;
+      color: #1a1a1b;
+   }
+}
+
+.Action {
+   background-color: #bfbfc1;
+   color: #1a1a1b;
+   &:hover{
+      background-color: darken(#bfbfc1, 10%);
+   }
 }

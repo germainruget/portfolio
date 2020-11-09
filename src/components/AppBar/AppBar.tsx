@@ -1,8 +1,6 @@
 import React, { useContext } from 'react';
 import AppType from '../../config/AppType';
 
-import useWhyDidYouUpdate from '../../hooks/useWhyDidYouUpdate';
-
 import { AppsContext } from '../../context/apps-context';
 
 import classes from './AppBar.module.scss';
@@ -17,7 +15,7 @@ interface Props {
 }
 
 const AppBar: React.FC<Props> = ({ menuState, changeMenu }) => {
-   useWhyDidYouUpdate('AppBar', { menuState, changeMenu })
+
    const { config, open } = useContext(AppsContext);
 
    const allApps = Object.keys(AppType).map(key => {
@@ -47,16 +45,16 @@ const AppBar: React.FC<Props> = ({ menuState, changeMenu }) => {
 
    return (
       <div className={classes.AppBar}>
-         <AppBarIcon type='GridTwo' action={() => changeMenu('openMenu')} active={menuState.showMenu} />
+         <AppBarIcon type='GridTwo' action={() => changeMenu('openMenu')} active={menuState.showMenu} data-tour="menu" />
          <div className={globalClasses.MobileOnly}>
             <AppBarIcon type='AppSwitch' action={() => changeMenu('openMobileMenu')} active={menuState.showMobileMenu} />
          </div>
-         <AppBarIcon type='SettingTwo' action={() => changeMenu('openSettings')} active={menuState.showSettings} />
+         <AppBarIcon type='SettingTwo' action={() => changeMenu('openSettings')} active={menuState.showSettings} data-tour="settings" />
          <div className={[classes.Separator, globalClasses.DesktopOnly].join(' ')}></div>
 
          <div className={globalClasses.DesktopOnly} style={{ width: '100%' }} >
             <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-               <div>
+               <div data-tour="icons-apps">
                   {allApps}
                </div>
                <div>
@@ -65,8 +63,7 @@ const AppBar: React.FC<Props> = ({ menuState, changeMenu }) => {
             </div>
          </div>
 
-         <AppBarIcon type='Wechat' action={() => changeMenu('openChatHelper')} active={menuState.showChatHelper} />
-
+         <AppBarIcon data-tour="chat" type='Wechat' action={() => changeMenu('openChatHelper')} active={menuState.showChatHelper} />
       </div>
    );
 };

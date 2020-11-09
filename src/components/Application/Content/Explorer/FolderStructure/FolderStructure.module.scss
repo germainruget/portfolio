@@ -4,24 +4,21 @@
     box-sizing: border-box;
     padding: 10px;
     height:100%;
-    width: 70vw;
-    position: fixed;
+    width: 250px;
+    flex: 0 0 250px;
+    position: absolute;
     z-index: 50;
-    .Fixed{
-        position: fixed;
-    }
+    display: flex;
 }
 
 .Close{
-    margin-left: -70vw;
+    margin-left: -210px;
 }
 
-@media screen and (min-width:'800px'){
-    .FolderStructure{
-        width: 250px;
-        position: relative;
-    }
-    .Close{
-        margin-left: -250px;
-    }
-}
+
+
+// @media screen and (min-width:'1150px'){
+// .FolderStructure{
+//     position: relative;
+// }
+// }

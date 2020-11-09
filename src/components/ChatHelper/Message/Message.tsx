@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import LoadingIndicator from '../../UI/Loader/Loader';
+import React from 'react'
 import classes from './Message.module.scss';
 
 interface MessageProps {

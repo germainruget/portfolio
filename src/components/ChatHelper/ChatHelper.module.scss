@@ -6,12 +6,13 @@
    backdrop-filter: blur(5px);
    padding: 10px;
    color: #fff;
-   position: absolute;
+   position: relative;
    top: 0;
    right: 0;
    z-index: 10;
    display: flex;
    flex-direction: column;
+   overflow: hidden;
    h2 {
       text-align: center;
    }
@@ -21,18 +22,26 @@
    $width: 500px;
    .ChatHelper {
       width: $width;
+      flex-basis: $width;
    }
 }
 
-
 /********************************/
-
-.Chat{
-   padding: 10px;
-   display: flex;
-   flex-direction: column;
-   background-color: #fff;
-   height: 100%;
+.Scroll {
    overflow-y: auto;
    overflow-x: hidden;
+   position: relative;
+   height: 100%;
+   background-color: #f3f6fb;
+}
+
+.Chat {
+   padding: 10px;
+   box-sizing: border-box;
+   display: flex;
+   flex-direction: column;
+   left: 0;
+   right: 0;
+   height: 100%;
+   position: absolute;
 }

@@ -13,10 +13,11 @@ interface Props {
    action: () => void;
    active?: boolean;
    open?: boolean;
-   noMobile?:boolean;
+   noMobile?: boolean;
+   [x: string]: any;
 }
 
-const AppIcon: React.FC<Props> = ({ size, active, open, action, title, type, noMobile = false }) => {
+const AppIcon: React.FC<Props> = ({ size, active, open, action, title, type, noMobile = false, ...props }) => {
 
    let defineSize = size ? size : 'classic';
    let defineTitle = <span className={classes.Title}></span>;
@@ -37,12 +38,12 @@ const AppIcon: React.FC<Props> = ({ size, active, open, action, title, type, noM
       iconClasses.push(classes.Open);
    }
 
-   if(noMobile) {
+   if (noMobile) {
       iconClasses.push(global.DesktopOnly);
    }
 
    return (
-      <motion.div layout transition={{ ease: "easeOut", duration: .2 }} className={iconClasses.join(' ')} onClick={action}>
+      <motion.div {...props} layout transition={{ ease: "easeOut", duration: .2 }} className={iconClasses.join(' ')} onClick={action} >
          <Icon type={type} theme="outline" size={iconSize} className={classes.Icon} />
          {defineTitle}
       </motion.div>

@@ -1,5 +1,4 @@
 import React, { useState, useCallback, useContext } from 'react';
-import useWhyDidYouUpdate from '../../hooks/useWhyDidYouUpdate';
 
 import AppType, { Apps } from '../../config/AppType';
 import { AppsContext } from '../../context/apps-context';
@@ -15,7 +14,6 @@ interface Props {
 }
 
 const MainMenu: React.FC<Props> = ({ displayMenu }) => {
-   useWhyDidYouUpdate('MainMenu', { displayMenu });
 
    const { open } = useContext(AppsContext);
 
@@ -27,7 +25,9 @@ const MainMenu: React.FC<Props> = ({ displayMenu }) => {
          action={() => { open(apps[key].name); displayMenu() }}
          type={apps[key].icon}
          noMobile={!apps[key].onMobile}
-         key={key} />
+         key={key}
+         data-tour={apps[key].name}
+         />
    });
 
    const filterApps = useCallback((filteredApps: Apps) => {
@@ -52,7 +52,7 @@ const MainMenu: React.FC<Props> = ({ displayMenu }) => {
    }
 
    return (
-      <motion.div variants={showMenu} initial="hidden" animate="show" exit="hidden" className={classes.MainMenu} >
+      <motion.div variants={showMenu} initial="hidden" animate="show" exit="hidden" className={classes.MainMenu} data-tour="main-menu" >
          <Search filter={filterApps} />
          <div className={classes.Icons}>
             {iconsApps}

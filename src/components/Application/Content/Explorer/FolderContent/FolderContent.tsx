@@ -1,7 +1,6 @@
 import * as React from 'react';
 
-import Icon from '@icon-park/react/es/all';
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 
 import classes from './FolderContent.module.scss';
 import global from '../../../../../global/style/Global.module.scss';
@@ -16,13 +15,10 @@ import CSSProject from '../CSSProject/CSSProject';
 export interface Props {
    active: boolean;
    toggleStructure: () => void;
+   width:number;
 }
 
-const FolderContent: React.FC<Props> = ({ toggleStructure, active }) => {
-
-
-   let icon: any = 'MenuUnfold';
-   if (active) icon = 'MenuFold';
+const FolderContent: React.FC<Props> = ({ toggleStructure, active, width }) => {
 
    const webContent = Object.keys(WebData).map(key => {
       return (
@@ -44,11 +40,11 @@ const FolderContent: React.FC<Props> = ({ toggleStructure, active }) => {
    return (
       <>
          <div className={classes.FolderContent}>
-            {active && <Backdrop active action={toggleStructure} className={global.MobileOnly} />}
-            <Icon onClick={toggleStructure} type={icon} theme="outline" size={20} style={{ color: '#000', position: 'fixed', mixBlendMode: 'hard-light' }} />
+            {active && width < 1150 && <Backdrop active action={toggleStructure} />}
             <Switch>
                {webContent}
                {cssContent}
+               <Redirect exact from='/' to='/ancor' />
             </Switch>
          </div>
       </>

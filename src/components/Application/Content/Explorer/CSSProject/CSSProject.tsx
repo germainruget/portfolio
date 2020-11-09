@@ -16,7 +16,6 @@ const CSSProject: React.FC<Props> = ({ title, html, css, preview }) => {
 
    let { path, url } = useRouteMatch();
    const containerRef = useComponentResize();
-
    let scale = containerRef.boundingBox.height / 1150;
 
    return (
@@ -29,7 +28,6 @@ const CSSProject: React.FC<Props> = ({ title, html, css, preview }) => {
          </ul>
          <div style={{ padding: '10px', background: 'rgb(44, 44, 44)', overflow: 'auto' }}>
             <Switch>
-
                <Route path={`${path}/preview`}>
                   <div ref={containerRef.setRef} className={classes.PreviewContainer}>
                      <div

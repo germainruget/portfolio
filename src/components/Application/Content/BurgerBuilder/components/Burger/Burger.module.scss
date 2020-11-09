@@ -1,7 +1,9 @@
 .BurgerContainer{
     display: flex;
-    min-height: 250px;
+    height: 250px;
+    max-height: 250px;
     overflow-y: scroll;
+    background-color: #fff;
 }
 
 .Burger{
