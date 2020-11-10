@@ -42,7 +42,7 @@ const Core: React.FC<Props> = ({ changeMenu, menuState }) => {
             </AnimatePresence>
          </div>
          {/* <AnimatePresence> */}
-            {menuState.showChatHelper && <ChatHelper key='ChatHelper' displayChatHelper={() => changeMenu('openChatHelper')} />}
+         {menuState.showChatHelper && <ChatHelper key='ChatHelper' displayChatHelper={() => changeMenu('openChatHelper')} />}
          {/* </AnimatePresence> */}
       </div>
    );
