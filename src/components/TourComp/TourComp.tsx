@@ -49,7 +49,7 @@ const TourComp: React.FC<Props> = ({ type = "icon", children }) => {
 
    const [isTourOpen, setIsTourOpen] = useState(false);
 
-   let action = <Icon data-tour="help" type='Help' theme="outline" size="20" style={{ marginTop: '5px' }} onClick={() => setIsTourOpen(true)} />
+   let action = <Icon data-tour="help" type='Help' theme="outline" size="20" style={{ marginTop: '5px', cursor:'pointer' }} onClick={() => setIsTourOpen(true)} />
    if (type === "link") action = <span className={classes.OpenApp} onClick={() => setIsTourOpen(true)}>{children}</span>
    return (
       <>

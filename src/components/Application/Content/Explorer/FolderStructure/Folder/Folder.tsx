@@ -44,7 +44,7 @@ const Folder: React.FC<FolderProps> = ({ icon, title, childs, to, toggleStructur
 
    if (to) {
       currentLink = (
-         <NavLink activeClassName={classes.Active} to={to} onClick={(width && width < 800) ? toggleStructure : undefined}>
+         <NavLink activeClassName={classes.Active} to={to} onClick={(width && width < 1150) ? toggleStructure : undefined}>
             <Icon type={icon} theme="outline" size={20} style={{ marginRight: '5px' }} />
             <span className={classes.Title}>{title}</span>
          </NavLink>

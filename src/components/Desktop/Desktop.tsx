@@ -1,16 +1,18 @@
-import React, { useState, useEffect, useCallback, useReducer } from 'react';
+import React, { useState, useCallback, useReducer } from 'react';
 
 import AppsContextProvider from '../../context/apps-context';
 
 import useWindowSize from '../../hooks/useWindowSize';
 
-import classes from './Desktop.module.scss';
+import Logo from '../../assets/logo.svg';
 
-import defaultBG from '../../assets/images/mountains.jpg'
+import classes from './Desktop.module.scss';
 
 import AppBar from '../AppBar/AppBar';
 import NotificationBar from '../NotificationBar/NotificationBar';
 import Core from '../Core/Core';
+import Loader from '../Loader/Loader';
+import { AnimatePresence, motion } from 'framer-motion';
 
 interface State {
    showMenu: boolean,
@@ -54,47 +56,38 @@ const Desktop: React.FC = () => {
       dispatch({ type: action });
    }, [])
 
-   const [background, setBackground] = useState(defaultBG);
-   const [loadBackground, setLoadBackground] = useState(false);
+   const [animationComplete, setAnimationComplete] = useState(false);
 
-   const fetchImage = useCallback(src => {
-      const image = new Image()
-      image.onload = () => setLoadBackground(true);
-      image.src = src
-   }, []);
+   const setAnimationCompleteHandler = () => {
+      setTimeout(() => {
+         setAnimationComplete(true);
+      }, 500);
+   }
 
-   useEffect(() => {
-      fetchImage(defaultBG);
-   }, [fetchImage]);
-
-
-   const changeBackground = useCallback((bg): void => {
-      setBackground(bg);
-   }, []);
-
-   let desktop = <p>LOading...</p>
-
-   if (loadBackground) {
-      desktop = (
-         <div className={classes.Desktop} style={{ backgroundImage: `url(${background})`, height: windowSize.height }}>
-
+   return (
+      <AnimatePresence>
+         {!animationComplete &&
+            <motion.div
+               key="LoaderContainer"
+               exit={{ opacity: 0 }}
+               transition={{ duration: 0.2, ease: "easeInOut" }}>
+               <Loader onAnimationComplete={setAnimationCompleteHandler} />
+            </motion.div>
+         }
+         <div className={classes.Desktop} style={{ height: windowSize.height, backgroundImage:`url(${Logo})` }}>
             <NotificationBar />
             <AppsContextProvider>
                <Core
                   menuState={state}
-                  changeMenu={changeMenu}
-                  setBg={changeBackground} />
+                  changeMenu={changeMenu} />
 
                <AppBar
                   menuState={state}
                   changeMenu={changeMenu} />
             </AppsContextProvider>
          </div>
-      )
-   }
-
-
-   return desktop;
+      </AnimatePresence>
+   );
 }
 
 export default Desktop;

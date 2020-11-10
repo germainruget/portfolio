@@ -8,6 +8,7 @@ import classes from './MainMenu.module.scss';
 import AppIcon from '../UI/AppIcon/AppIcon';
 import Search from './Search/Search';
 import { motion } from 'framer-motion';
+import Close from '../UI/Close/Close';
 
 interface Props {
    displayMenu: () => void;
@@ -53,6 +54,7 @@ const MainMenu: React.FC<Props> = ({ displayMenu }) => {
 
    return (
       <motion.div variants={showMenu} initial="hidden" animate="show" exit="hidden" className={classes.MainMenu} data-tour="main-menu" >
+         <Close action={displayMenu} position="right" />
          <Search filter={filterApps} />
          <div className={classes.Icons}>
             {iconsApps}

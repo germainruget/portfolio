@@ -5,32 +5,29 @@ import OpenApp from './Message/OpenApp/OpenApp';
 export const DATA = [
    {
       "id": 0,
-      "question": <>Parles moi de toi.</>,
+      "question": <>Parles moi un peu plus de ce projet !</>,
       "responses": [
-         <>Je m'appel Germain Ruget et je suis développeur web depuis 6 ans.</>,
-         <>Passioné par le Web et le monde du numérique en général, j'adore coder !</>,
-         <>J'ai commencer par travailler en Freelance, principalement sur la création de sites sur Worpress.</>,
-         <OpenApp appName='Explorer'>Si tu veux voir quelqu'un de mes projets <span style={{textDecoration:'underline'}}>c'est par ici !</span></OpenApp>,
-         <>Puis j'ai travaillé 3 ans dans une entreprise de logiciel RH dans le pole R&D. Ma mission principale était de  m'occuper des évolutions technique de l'application.</>,
-         <OpenApp appName='PDFReader'>D'ailleurs tu peux aussi consulter mon CV <span style={{textDecoration:'underline'}}>en cliquant là !</span></OpenApp>
+         <>Je me forme actuellement à React et ceci est mon outil de formation, mon "terrain de jeu" sur cette technologie.</>,
+         <>Plus précisément, ce projet vise à partager mes réalisations professionnelles et mes créations personnelles.</>,
+         <>Pour découvrir tout ça, je t'invite à suivre ce <TourComp type="link">pas-à-pas.</TourComp></>
       ]
    },
    {
       "id": 1,
-      "question": <>Ou suis-je ?</>,
+      "question": <>Parles moi de toi.</>,
       "responses": [
-         <>Ce projet à vocation de partager mes créations et passes temps dans le monde du numérique.</>,
-         <>Mon projet actuel est de me former à React, ceci est mon outil de formation, mon "terrain de jeux" sur cette techno.</>,
-         <>Sous la forme d'un OS, je t'invite à parcourir et découvir mon environnement de développeur, mes créations et expériences...</>,
-         <><TourComp type="link">Si tu veux un tour rapide d'ailleurs click ici !</TourComp></>
+         <>Je suis Germain Ruget, développeur web depuis 6 ans. Passioné par le Web et les nouvelles technologies, j'adore coder !</>,
+         <>J'ai débuté en Freelance, principalement sur la création de sites sur Worpress. <OpenApp appName='Explorer'>Voici quelques-uns de <span style={{textDecoration:'underline'}}>mes projets.</span></OpenApp></>,
+         <>J'ai par la suite intégré le pôle R&D d'une entreprise de logiciel RH. Et durant 3 ans, je me suis occupé des évolutions technique de l'application.</>,
+         <OpenApp appName='PDFReader'>Pour plus de détail, consultes <span style={{textDecoration:'underline'}}>mon CV</span></OpenApp>
       ]
    },
    {
       "id": 2,
       "question": <>Comment puis je te contacter ?</>,
       "responses": [
-         <>Par mail : <a style={{display:"inline-block"}} href='mailto:germainr.ruget@gmail.com'>germain.ruget@gmail.com</a></>,
-         <>Mais aussi sur : <a style={{display:"inline-block"}} href='https://www.linkedin.com/in/germain-ruget' target='_blank'>Linkedin</a></>,
+         <>Par mail : <a style={{textDecoration:'underline', display:"inline-block"}} href='mailto:germainr.ruget@gmail.com'>germain.ruget@gmail.com</a></>,
+         <>Mais aussi sur : <a rel="noopener noreferrer" style={{textDecoration:'underline', display:"inline-block"}} href='https://www.linkedin.com/in/germain-ruget' target='_blank'>Linkedin</a></>,
       ]
    }
 ]

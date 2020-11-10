@@ -17,10 +17,9 @@ import { AnimatePresence } from 'framer-motion';
 interface Props {
    menuState: any
    changeMenu: (type: Action['type']) => void;
-   setBg: (bg: any) => void;
 }
 
-const Core: React.FC<Props> = ({ changeMenu, setBg, menuState }) => {
+const Core: React.FC<Props> = ({ changeMenu, menuState }) => {
    //ref pass to the application to constrain the drag to the CORE
    const constraintRef = useRef<HTMLDivElement>(null);
 
@@ -33,16 +32,18 @@ const Core: React.FC<Props> = ({ changeMenu, setBg, menuState }) => {
    return (
       <div className={classes.Core} >
          <div className={classes.CoreContent} ref={constraintRef} >
-            <BrowserRouter>
-               <AnimatePresence>
+            <AnimatePresence>
+               <BrowserRouter>
                   {menuState.showMenu && <MainMenu key='MainMenu' displayMenu={() => changeMenu('openMenu')} />}
                   {menuState.showMobileMenu && <MobileNavigation key='MobileNavigation' displayMobileMenu={() => changeMenu('openMobileMenu')} />}
-                  {menuState.showSettings && <Settings key='Settings' setBg={setBg} />}
-               </AnimatePresence>
-               {Apps}
-            </BrowserRouter>
+                  {menuState.showSettings && <Settings key='Settings' displaySettings={() => changeMenu('openSettings')} />}
+                  {Apps}
+               </BrowserRouter>
+            </AnimatePresence>
          </div>
-         {menuState.showChatHelper && <ChatHelper key='ChatHelper' />}
+         {/* <AnimatePresence> */}
+            {menuState.showChatHelper && <ChatHelper key='ChatHelper' displayChatHelper={() => changeMenu('openChatHelper')} />}
+         {/* </AnimatePresence> */}
       </div>
    );
 }

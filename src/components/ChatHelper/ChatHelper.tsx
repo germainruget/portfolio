@@ -5,6 +5,7 @@ import Message from './Message/Message';
 
 import { DATA } from './DATA';
 import { motion } from 'framer-motion';
+import Close from '../UI/Close/Close';
 
 export interface MessageInt {
    id: number;
@@ -13,7 +14,11 @@ export interface MessageInt {
    clicked: boolean;
 }
 
-const ChatHelper: React.FC<{}> = () => {
+interface Props {
+   displayChatHelper: () => void;
+}
+
+const ChatHelper: React.FC<Props> = ({ displayChatHelper }) => {
    const dataLength = DATA.length;
    const [questionOrder, setQuestionOrder] = useState<number[]>([]);
    const [message, setMessages] = useState<MessageInt[]>([]);
@@ -106,12 +111,15 @@ const ChatHelper: React.FC<{}> = () => {
 
    return (
       <motion.div variants={showMenu} initial="hidden" animate="show" exit="hidden" className={classes.ChatHelper}>
+         <Close action={displayChatHelper} position="left" />
          <h2>Chat</h2>
          <div className={classes.Scroll}>
             {restart ?
                <motion.div variants={containerMotion} initial="hidden" animate="show" className={classes.Chat}>
                   <motion.div>
-                     <Message id={-1} clicked > Bonjour et bienvenue ! Que puis-je faire pour toi ? </Message>
+                     <Message id={-1} clicked > Bonjour et bienvenue ! </Message>
+                     <Message id={-1} clicked > Ce projet sous la forme d'un OS t'invite à découvrir mon univers de développeur.</Message>
+                     <Message id={-1} clicked > Que puis-je faire pour toi ?</Message>
                   </motion.div>
                   {message.map((mess, index) => {
                      return (

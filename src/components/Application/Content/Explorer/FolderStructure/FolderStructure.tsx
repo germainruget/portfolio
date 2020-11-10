@@ -31,7 +31,7 @@ const FolderStructure: React.FC<Props> = ({ structure, active, toggleStructure, 
             {children}
          </div>
          <div style={{ textAlign: 'right', flex: '0 0 30px', cursor:'pointer' }} onClick={toggleStructure}>
-            <Icon type={icon} theme="outline" size={20} style={{}} />
+            <Icon type={icon} theme="outline" size={20} style={{color:'#fff'}} />
          </div>
       </div>
    );

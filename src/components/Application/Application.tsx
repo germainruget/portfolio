@@ -56,7 +56,7 @@ const Application = React.forwardRef<HTMLDivElement, Props>(({ config }, ref) =>
          onMouseDownCapture={() => onFront(config.name)}>
          <Header onPointerDown={startDrag} onPointerUp={stopDrag} name={config.name} close={() => close(config.name)} reduce={() => reduce(config.name)} />
          <div className={classes.AppContent} style={{ height: appHeight }}>
-            {appLoad && <LogoAnimationLoader message="Game is loading..." />}
+            {appLoad && <LogoAnimationLoader message="Loading..." />}
             {React.cloneElement(config.content, { loadApp: appLoadedHandler })}
          </div>
 

@@ -3,7 +3,6 @@ import * as React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
 import classes from './FolderContent.module.scss';
-import global from '../../../../../global/style/Global.module.scss';
 
 import { DATA as WebData } from '../WebProject/DATA';
 import { DATA as CSSData } from '../CSSProject/DATA/DATA';

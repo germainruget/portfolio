@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { Document, Page, pdfjs } from "react-pdf";
 
 import classes from './PDFReader.module.scss';

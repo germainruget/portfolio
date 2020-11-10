@@ -1,0 +1,13 @@
+.ThemeChanger{
+   width: 100px;
+   height:100px;
+   display: flex;
+   flex-direction: column;
+   border: solid 5px #fff;
+   box-sizing: border-box;
+   margin: 10px;
+   cursor: pointer;
+   & > div {
+      height: 100%;
+   }
+}

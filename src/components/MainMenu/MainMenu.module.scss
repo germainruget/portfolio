@@ -1,7 +1,7 @@
 .MainMenu{
    box-sizing: border-box;
    padding: 15px;
-   background-color: rgba(0,0,0,0.75);
+   background-color: var(--window);
    backdrop-filter: blur(5px);
    top:0;
    left: 0;

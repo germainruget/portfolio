@@ -1,0 +1,31 @@
+.Container{
+   width: 100vw;
+   height: 100vh;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background-color: #000;
+   position: fixed;
+   z-index: 100;
+}
+
+.Logo{
+   $size: 250px;
+   width:  $size;
+   height:  $size;
+}
+
+.PathClass{
+   fill: none;
+   stroke: #ccc;
+   stroke-miterlimit: 10;
+   stroke-width: 10px;
+}
+
+.OS{
+   color: #fff;
+   width: 100%;
+   text-align: right;
+   display: block;
+   font-size: 1.5em;
+}

@@ -5,9 +5,8 @@
    align-items: center;
    justify-content: space-between;
    overflow: hidden;
-   background-size:cover;
+   background-color: var(--background);
+   background-position: center;
    background-repeat: no-repeat;
-   background-position:center;
-   background-attachment: fixed;
-   overflow: hidden;
+   background-size: 250px;
 }

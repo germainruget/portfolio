@@ -10,7 +10,12 @@ body {
 :root{
   --notification-bar_height:30px;
   --app-bar_height:60px;
-  --core-height: calc(100vh - var(--notification-bar_height) - var(--app-bar_height)); 
+  --core-height: calc(100vh - var(--notification-bar_height) - var(--app-bar_height));
+
+  --background:#00adb5;
+  --window: #222831; /*rgba(0,0,0,0.75)*/
+  --window-light: #393e46;
+  --window-dark:#222831;
 }
 
 code {

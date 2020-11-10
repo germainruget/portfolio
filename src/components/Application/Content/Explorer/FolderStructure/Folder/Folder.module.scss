@@ -3,11 +3,11 @@ $color: #858c97;
 .Folder {
     display: flex;
     flex-direction: column;
-    color: $color;
+    color: #fff;
     padding: 2px 5px;
     cursor: pointer;
     .Title {
-        color: darken($color, 10%);
+        color: #fff;
         font-size: 1.1em;
     }
 }
@@ -16,11 +16,11 @@ a {
     text-decoration: none;
     box-sizing: border-box;
     display: block;
-    color: darken($color, 20%);;
+    color: #fff;
     &:hover,
     &:active,
     &.Active > * {
-        color: $color;
+        color: rgb(150, 150, 150)!important;
     }
 }
 

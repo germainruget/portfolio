@@ -2,7 +2,7 @@
    width: 100vw;
    height: 100%;
    box-sizing: border-box;
-   background: rgba(0, 0, 0, 0.75);
+   background: var(--window);
    backdrop-filter: blur(5px);
    padding: 10px;
    color: #fff;
